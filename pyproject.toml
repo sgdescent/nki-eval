@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nki-eval"
+version = "0.1.0"
+description = "Correctness-first evaluation of NKI kernels against PyTorch references"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = ["numpy>=1.24,<3", "torch>=2.5", "ml-dtypes>=0.5"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.11", "build>=1"]
+
+[project.scripts]
+nki-eval = "nki_eval.cli:main"
+
+[project.urls]
+Repository = "https://github.com/sgdescent/nki-eval"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["neuron: requires a configured AWS Neuron device and SDK", "simulator: requires NKI"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

@@ -1,0 +1,21 @@
+{
+  "name": "tiled_add",
+  "rtol": 0.0001,
+  "atol": 0.00001,
+  "cases": [
+    {"name": "aligned_fp32", "inputs": [
+      {"shape": [128, 512]}, {"shape": [128, 512]}
+    ], "flops": 65536, "bytes_moved": 786432},
+    {"name": "tails_fp32", "inputs": [
+      {"shape": [129, 513]}, {"shape": [129, 513]}
+    ]},
+    {"name": "bf16", "inputs": [
+      {"shape": [32, 128], "dtype": "bfloat16"},
+      {"shape": [32, 128], "dtype": "bfloat16"}
+    ]},
+    {"name": "zeros", "inputs": [
+      {"shape": [1, 17], "distribution": "zeros"},
+      {"shape": [1, 17], "distribution": "zeros"}
+    ]}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "fused_add_relu",
+  "cases": [
+    {"name": "mixed_signs", "inputs": [
+      {"shape": [128, 512]}, {"shape": [128, 512]}
+    ], "flops": 131072, "bytes_moved": 786432},
+    {"name": "negative", "inputs": [
+      {"shape": [17, 31], "distribution": "uniform", "low": -5, "high": -1},
+      {"shape": [17, 31], "distribution": "uniform", "low": -5, "high": -1}
+    ]}
+  ]
+}

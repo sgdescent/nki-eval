@@ -14,9 +14,15 @@ import numpy as np
 import torch
 
 from .backends import BACKENDS, DependencyError
-from .compare import compare
 from .loading import lint_candidate, load
-from .metrics import aggregate_speedup, benchmark
+from .metrics import (
+    BENCHMARK_PROTOCOL,
+    BenchmarkExecutionError,
+    BenchmarkValidationError,
+    aggregate_speedup,
+    benchmark,
+    check_output,
+)
 from .spec import clone_inputs, inputs_for, validate
 
 
@@ -73,6 +79,11 @@ def run(request, folder):
     start = time.perf_counter()
     try:
         spec = validate(request["spec"])
+        seed_count = request["trials"] * len(spec["cases"])
+        if request["backend"] != "simulator" and not request["correctness_only"]:
+            seed_count += (request["warmup"] + request["iterations"]) * len(spec["cases"])
+        if request["seed"] + seed_count > 2**63:
+            raise ValueError("Evaluation seeds exceed the supported range")
         torch.set_num_threads(request["threads"])
         torch.manual_seed(request["seed"])
         random.seed(request["seed"])
@@ -130,27 +141,20 @@ def run(request, folder):
                     progress("candidate_execution")
                     args = clone_inputs(inputs)
                     actual = fn(*args)
-                    check = compare(expected, actual, **tolerance)
-                    # A functional contract: input values must remain unchanged.
-                    for index, (before, after) in enumerate(zip(inputs, args)):
-                        if (
-                            isinstance(before, torch.Tensor)
-                            and not compare(before, after, rtol=0, atol=0, equal_nan=True)["passed"]
-                        ):
-                            check["passed"] = False
-                            check["problems"].append(f"Input {index} was mutated")
+                    check = check_output(expected, actual, inputs, args, **tolerance)
                     trial_result = {"seed": trial_seed, "candidate": check}
                     if baseline is not None:
                         progress("baseline_execution")
-                        baseline_check = compare(
-                            expected, baseline(*clone_inputs(inputs)), **tolerance
+                        baseline_args = clone_inputs(inputs)
+                        baseline_check = check_output(
+                            expected, baseline(*baseline_args), inputs, baseline_args, **tolerance
                         )
                         trial_result["baseline"] = baseline_check
                         case_passed &= baseline_check["passed"]
                     case_passed &= check["passed"]
                     row["trials"].append(trial_result)
                 row["passed"] = case_passed
-                prepared.append((fn, baseline, example, case))
+                prepared.append((fn, baseline, case))
             result["correct"] = all(x["passed"] for x in result["cases"])
             if not result["correct"]:
                 result["status"] = "incorrect"
@@ -161,26 +165,43 @@ def run(request, folder):
                 }
             else:
                 if backend.timing_scope and not request["correctness_only"]:
-                    for row, (fn, baseline, inputs, case) in zip(result["cases"], prepared):
+                    benchmark_seed = request["seed"] + request["trials"] * len(spec["cases"])
+                    for row, (fn, baseline, case) in zip(result["cases"], prepared):
                         case_name = row["name"]
                         progress("benchmark")
                         row["performance"] = benchmark(
                             fn,
                             baseline,
-                            inputs,
+                            reference,
                             request["warmup"],
                             request["iterations"],
                             backend.timing_scope,
                             case,
+                            benchmark_seed,
+                            tolerance,
                         )
+                        benchmark_seed += request["warmup"] + request["iterations"]
                     result["performance"] = {
                         "geometric_mean_speedup": aggregate_speedup(result["cases"]),
                         "timing_scope": backend.timing_scope,
+                        "benchmark_protocol": BENCHMARK_PROTOCOL,
                         "baseline": "compiled_pytorch_neuron"
                         if request["backend"] == "neuron"
                         else "pytorch_cpu_debug",
                     }
                 result["status"] = "passed"
+    except BenchmarkValidationError as exc:
+        result["status"] = "incorrect"
+        result["correct"] = False
+        row["passed"] = False
+        row["benchmark_validation"] = {"passed": False, **exc.details}
+        result["error"] = {
+            "category": "correctness_error",
+            "stage": "benchmark_validation",
+            "case": case_name,
+            "message": str(exc),
+            **exc.details,
+        }
     except Exception as exc:
         category = (
             "dependency_error"
@@ -204,6 +225,13 @@ def run(request, folder):
             "message": str(exc),
             "traceback": traceback.format_exc(),
         }
+        if isinstance(exc, BenchmarkExecutionError):
+            result["error"].update(exc.details)
+    # A later failure invalidates all partial timing, including earlier cases.
+    if result["status"] != "passed":
+        result["performance"] = None
+        for case in result["cases"]:
+            case["performance"] = None
     result["environment"] = environment()
     result["elapsed_s"] = time.perf_counter() - start
     return result

@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-21",
+  "source_commit": "0ebffec7e76fe1e0df52dc94c7053a294b8f285d",
+  "instance_type": "trn1.2xlarge",
+  "region": "us-east-1",
+  "accelerator": "Trainium1, 2 NeuronCores, 32 GB",
+  "validation": {
+    "simulator_examples_passed": 2,
+    "hardware_examples_passed": 2,
+    "hardware_cases_passed": 6
+  },
+  "timing_scope": "neuron_host_request_including_transfers",
+  "cases": [
+    {
+      "example": "add-hardware",
+      "case": "aligned_fp32",
+      "candidate_median_ms": 0.2773535,
+      "reference_median_ms": 0.278553,
+      "candidate_p99_ms": 0.30771493999999994,
+      "speedup": 1.0043248057082388,
+      "samples": 200
+    },
+    {
+      "example": "add-hardware",
+      "case": "tails_fp32",
+      "candidate_median_ms": 0.323071,
+      "reference_median_ms": 0.283703,
+      "candidate_p99_ms": 0.35170817,
+      "speedup": 0.8781444326479318,
+      "samples": 200
+    },
+    {
+      "example": "add-hardware",
+      "case": "bf16",
+      "candidate_median_ms": 0.1766745,
+      "reference_median_ms": 0.165296,
+      "candidate_p99_ms": 0.20236813999999997,
+      "speedup": 0.9355962518643041,
+      "samples": 200
+    },
+    {
+      "example": "add-hardware",
+      "case": "zeros",
+      "candidate_median_ms": 0.16309449999999998,
+      "reference_median_ms": 0.1533,
+      "candidate_p99_ms": 0.19100410999999998,
+      "speedup": 0.9399458596089998,
+      "samples": 200
+    },
+    {
+      "example": "fused-relu-hardware",
+      "case": "mixed_signs",
+      "candidate_median_ms": 0.26313200000000003,
+      "reference_median_ms": 0.2613405,
+      "candidate_p99_ms": 0.28951944,
+      "speedup": 0.9931916300563973,
+      "samples": 200
+    },
+    {
+      "example": "fused-relu-hardware",
+      "case": "negative",
+      "candidate_median_ms": 0.159748,
+      "reference_median_ms": 0.149912,
+      "candidate_p99_ms": 0.18512997,
+      "speedup": 0.9384280241380173,
+      "samples": 200
+    }
+  ],
+  "notes": [
+    "Activate the Neuron virtual environment so libneuronpjrt-path is available.",
+    "Initial hardware attempt failed because the environment bin directory was missing from PATH; rerun passed.",
+    "Clean benchmarks ran after stopping auxiliary disk warming.",
+    "These are simple smoke-test kernels, not optimized performance baselines."
+  ],
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1010-aws-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "packages": {
+      "torch": "2.9.1",
+      "numpy": "2.4.4",
+      "nki": "0.3.0+23928721754.g18aa1271",
+      "nki-stdlib": null,
+      "neuronx-cc": "2.24.5133.0+58f8de22",
+      "torch-neuronx": "2.9.0.2.13.24727+8e870898"
+    },
+    "settings": {
+      "NEURON_RT_VISIBLE_CORES": "0",
+      "NEURON_PLATFORM_TARGET_OVERRIDE": "trn1",
+      "NKI_PRECISE_FP": null,
+      "NEURON_CC_FLAGS": null,
+      "NKI_SIMULATOR": null
+    }
+  }
+}

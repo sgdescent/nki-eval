@@ -1,0 +1,12 @@
+{
+  "src/nki_eval/__init__.py": "69d0479d54d7bca4b8917646b8d07d39d0407fe3b02fb35e2c7d8bb13ccfedf5",
+  "src/nki_eval/backends.py": "e2fb939d13d1cb7b5f457c049affb8e7a4bf489769eb3966ab75a6fb132382af",
+  "src/nki_eval/cli.py": "0f3bf3647aef5894406059dd0fafa668b689c109cd3c20b92c546da5c4811fd2",
+  "src/nki_eval/compare.py": "36ac2e6710cac4dc73c03e35dd18f56d6b79b7a482ae4034ebf1e0499ef17fe6",
+  "src/nki_eval/loading.py": "3de0c3087a9e0edf6539d9f56de3c3a427a8fdf71c82fc581ab8d4d8e28485ee",
+  "src/nki_eval/metrics.py": "6685e1efb7c56fdf80b8e7bce89b820d6469914ac11cf629b183d107594fefed",
+  "src/nki_eval/runner.py": "cc3d11b336ebba2d0efa8b8a3178443480c7265cdb23fede7f11473b664d95e0",
+  "src/nki_eval/spec.py": "c2509e1e9fdbe7225829ef2725bb15eb391d339b981fd82a02f10377d191f681",
+  "src/nki_eval/suite.py": "7d8610e53ca1907a847600e078c4f2da61918fb293ed9c56dec182272ac99f3e",
+  "src/nki_eval/worker.py": "565da58367de5497db199a6cd999937ee38832a432b76951e4d9b9d38fd28791"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "stable_row_softmax_fp32_output",
+  "rtol": 0.0001,
+  "atol": 0.000001,
+  "cases": [
+    {"name": "aligned_fp32", "inputs": [{"shape": [128, 512]}]},
+    {"name": "large_logits_and_row_tail_fp32", "inputs": [
+      {"shape": [129, 513], "distribution": "uniform", "low": 80, "high": 100}
+    ]},
+    {"name": "small_bf16", "inputs": [{"shape": [17, 31], "dtype": "bfloat16"}]}
+  ]
+}

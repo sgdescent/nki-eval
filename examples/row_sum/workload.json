@@ -1,0 +1,10 @@
+{
+  "name": "row_sum_fp32_accumulation",
+  "rtol": 0.0001,
+  "atol": 0.0001,
+  "cases": [
+    {"name": "aligned_fp32", "inputs": [{"shape": [128, 512]}]},
+    {"name": "row_and_width_tails_fp32", "inputs": [{"shape": [129, 513]}]},
+    {"name": "small_bf16", "inputs": [{"shape": [17, 31], "dtype": "bfloat16"}]}
+  ]
+}

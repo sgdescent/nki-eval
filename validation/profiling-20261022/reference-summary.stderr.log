@@ -1,0 +1,3 @@
+time="2026-10-22T22:19:15Z" level=info msg="Successfully initialized OpenAPI server configuration." basePath=/api/v2 version=v2
+time="2026-10-22T22:19:15Z" level=warning msg="NeuronCore buffer usage simulation is disabled for output format summary-json. The output will not include SB and PSUM usage over time values."
+time="2026-10-22T22:19:15Z" level=error msg="Error reading file" error="open /home/ubuntu/nki-eval-runs/20261022/profiling-smoke/reference.ntff: no such file or directory" filename=/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/reference.ntff

@@ -1,0 +1,431 @@
+{
+  "date": "2026-10-22",
+  "instance_type": "trn1.2xlarge",
+  "target": "trn1",
+  "visible_neuron_cores": "0",
+  "scope": "neuron_host_request_including_transfers",
+  "attempts": 1,
+  "source_fixes": 0,
+  "tolerance_changes": 0,
+  "families": [
+    {
+      "family": "row_sum",
+      "hardware_status": "passed",
+      "simulator_status": "passed",
+      "hardware_report": "native-row_sum-hardware-attempt1.json",
+      "hardware_report_sha256": "fe45a3667945d9d74d369e5d99e0bd347fde68b95c437f46db0cb9540f2e1395",
+      "simulator_report": "native-row_sum-simulator-attempt1.json",
+      "simulator_report_sha256": "49cade545562d4ba43c448cbd3c0cb95b8ab28cf5af365f08f953f4392c22d90",
+      "tolerances": {
+        "rtol": 0.0001,
+        "atol": 0.0001
+      },
+      "source": {
+        "reference": {
+          "file": "/home/ubuntu/nki-eval-research-20261022/examples/row_sum/reference.py",
+          "symbol": "reference",
+          "sha256": "f690af3859769e5deaed2e4493c8c59608db0e5373ae3fb5766132db34784d43"
+        },
+        "candidate": {
+          "file": "/home/ubuntu/nki-eval-research-20261022/examples/row_sum/kernel.py",
+          "symbol": "kernel",
+          "sha256": "0e3fe09ab9d3ba1e99c478e55b1ce3c04e83ebed6e69253882916f0e83f0ce53"
+        }
+      },
+      "compiler_args": [
+        "--target=trn1",
+        "--auto-cast=none"
+      ],
+      "cases": [
+        {
+          "name": "aligned_fp32",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 4.1961669921875e-05,
+          "candidate_median_ms": 0.2134805,
+          "reference_median_ms": 0.2177215,
+          "candidate_p99_ms": 0.2389095,
+          "speedup": 1.0198659830757377,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 15,
+            "seed_end": 234,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        },
+        {
+          "name": "row_and_width_tails_fp32",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 5.340576171875e-05,
+          "candidate_median_ms": 0.250282,
+          "reference_median_ms": 0.2481065,
+          "candidate_p99_ms": 0.28078922,
+          "speedup": 0.99130780479619,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 235,
+            "seed_end": 454,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        },
+        {
+          "name": "small_bf16",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 0.0,
+          "candidate_median_ms": 0.18621100000000002,
+          "reference_median_ms": 0.188373,
+          "candidate_p99_ms": 0.21195220999999997,
+          "speedup": 1.0116104848800553,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 455,
+            "seed_end": 674,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        }
+      ]
+    },
+    {
+      "family": "softmax",
+      "hardware_status": "passed",
+      "simulator_status": "passed",
+      "hardware_report": "native-softmax-hardware-attempt1.json",
+      "hardware_report_sha256": "018af1e2f2590ef00b08f7b500c823f565e5279fe3afc89f0dbadd38e6c14e31",
+      "simulator_report": "native-softmax-simulator-attempt1.json",
+      "simulator_report_sha256": "a576f853c6890cfd6b2d8df9fff30656aa8d2a646aaefcf21a6108bc2e2ba991",
+      "tolerances": {
+        "rtol": 0.0001,
+        "atol": 1e-06
+      },
+      "source": {
+        "reference": {
+          "file": "/home/ubuntu/nki-eval-research-20261022/examples/softmax/reference.py",
+          "symbol": "reference",
+          "sha256": "615dcefe40b3813dcd1e857dff63b9b20de74e75b4ed22a7f1116755469f1707"
+        },
+        "candidate": {
+          "file": "/home/ubuntu/nki-eval-research-20261022/examples/softmax/kernel.py",
+          "symbol": "kernel",
+          "sha256": "afbe8009e6f0c1e2177991e6eaa3307c38be1cf325a832c1225b66bf37d83ec0"
+        }
+      },
+      "compiler_args": [
+        "--target=trn1",
+        "--auto-cast=none"
+      ],
+      "cases": [
+        {
+          "name": "aligned_fp32",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 2.7939677238464355e-07,
+          "candidate_median_ms": 0.265852,
+          "reference_median_ms": 0.2565055,
+          "candidate_p99_ms": 0.2976068299999996,
+          "speedup": 0.9648432210402781,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 15,
+            "seed_end": 234,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        },
+        {
+          "name": "large_logits_and_row_tail_fp32",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 5.252659320831299e-07,
+          "candidate_median_ms": 0.2812555,
+          "reference_median_ms": 0.2669805,
+          "candidate_p99_ms": 0.31030048,
+          "speedup": 0.9492454369781214,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 235,
+            "seed_end": 454,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        },
+        {
+          "name": "small_bf16",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 1.6689300537109375e-06,
+          "candidate_median_ms": 0.18641,
+          "reference_median_ms": 0.1782485,
+          "candidate_p99_ms": 0.20969598999999997,
+          "speedup": 0.9562174776031329,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 455,
+            "seed_end": 674,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        }
+      ]
+    },
+    {
+      "family": "layernorm",
+      "hardware_status": "passed",
+      "simulator_status": "passed",
+      "hardware_report": "native-layernorm-hardware-attempt1.json",
+      "hardware_report_sha256": "48afd7bcfd23f139064d11e217e3f04965ed72c38c515b45108e058da996f5bb",
+      "simulator_report": "native-layernorm-simulator-attempt1.json",
+      "simulator_report_sha256": "9ae5c7842ac70c8b042aa897610c234030132576c63d140cd3216262262c107a",
+      "tolerances": {
+        "rtol": 0.0001,
+        "atol": 1e-05
+      },
+      "source": {
+        "reference": {
+          "file": "/home/ubuntu/nki-eval-research-20261022/examples/layernorm/reference.py",
+          "symbol": "reference",
+          "sha256": "e46aeadf7e95b5bcf23e1d3fd4a68b6e8ef4c8ac4060876c462449d5d0608f1a"
+        },
+        "candidate": {
+          "file": "/home/ubuntu/nki-eval-research-20261022/examples/layernorm/kernel.py",
+          "symbol": "kernel",
+          "sha256": "8143328590a11b75b2934764b118572f08cae7a72981f14018ae406bdc74d4e9"
+        }
+      },
+      "compiler_args": [
+        "--target=trn1",
+        "--auto-cast=none"
+      ],
+      "cases": [
+        {
+          "name": "aligned_fp32",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 0.00019216537475585938,
+          "candidate_median_ms": 0.258,
+          "reference_median_ms": 0.2570775,
+          "candidate_p99_ms": 0.2800938899999995,
+          "speedup": 0.9964244186046511,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 15,
+            "seed_end": 234,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        },
+        {
+          "name": "constant_and_row_tail_fp32",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 0.0,
+          "candidate_median_ms": 0.271868,
+          "reference_median_ms": 0.25055099999999997,
+          "candidate_p99_ms": 0.31104856,
+          "speedup": 0.9215906248620653,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 235,
+            "seed_end": 454,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        },
+        {
+          "name": "small_bf16",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 9.202957153320312e-05,
+          "candidate_median_ms": 0.17612,
+          "reference_median_ms": 0.178622,
+          "candidate_p99_ms": 0.20769969999999996,
+          "speedup": 1.0142062230297524,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 455,
+            "seed_end": 674,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        }
+      ]
+    },
+    {
+      "family": "matmul",
+      "hardware_status": "passed",
+      "simulator_status": "passed",
+      "hardware_report": "native-matmul-hardware-attempt1.json",
+      "hardware_report_sha256": "3e3d139c8f23c7f1eb2d5347e0a499c042b7aea06d084c5ca97179c45cf7db0c",
+      "simulator_report": "native-matmul-simulator-attempt1.json",
+      "simulator_report_sha256": "0b3cbf0986a13eebbb6f93ab0aaada01c9414e89ac53f3a4d357374686b75b2d",
+      "tolerances": {
+        "rtol": 0.01,
+        "atol": 0.001
+      },
+      "source": {
+        "reference": {
+          "file": "/home/ubuntu/nki-eval-research-20261022/examples/matmul/reference.py",
+          "symbol": "reference",
+          "sha256": "63054aaa268f71fb13a02a8b6f83d3a7029323e357fba3c180979b4dadbcf92e"
+        },
+        "candidate": {
+          "file": "/home/ubuntu/nki-eval-research-20261022/examples/matmul/kernel.py",
+          "symbol": "kernel",
+          "sha256": "a498eed82f1e62a4ce13e793421886235762c5c487a60bf80c802011a06538f2"
+        }
+      },
+      "compiler_args": [
+        "--target=trn1",
+        "--auto-cast=none"
+      ],
+      "cases": [
+        {
+          "name": "single_tile_bf16",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 0.0,
+          "candidate_median_ms": 0.20630199999999999,
+          "reference_median_ms": 0.2125625,
+          "candidate_p99_ms": 0.23939938,
+          "speedup": 1.0303462884509118,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 15,
+            "seed_end": 234,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        },
+        {
+          "name": "multiple_tiles_bf16",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 0.125,
+          "candidate_median_ms": 0.347592,
+          "reference_median_ms": 0.3562305,
+          "candidate_p99_ms": 0.50006735,
+          "speedup": 1.0248524131740662,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 235,
+            "seed_end": 454,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        },
+        {
+          "name": "all_dimension_tails_bf16",
+          "passed": true,
+          "correctness_trials": 5,
+          "maximum_absolute_error_in_initial_trials": 0.0,
+          "candidate_median_ms": 0.2201145,
+          "reference_median_ms": 0.21432400000000001,
+          "candidate_p99_ms": 0.26332762,
+          "speedup": 0.973693236928962,
+          "timed_samples": 200,
+          "validation": {
+            "protocol": "fresh_inputs_checked_v1",
+            "input_policy": "fresh_seed_per_pair",
+            "oracle": "eager_pytorch",
+            "placement": "outside_timed_interval",
+            "checked_warmup_pairs": 20,
+            "checked_timed_pairs": 200,
+            "seed_start": 455,
+            "seed_end": 674,
+            "note": "Constant distributions may produce identical values across seeds"
+          }
+        }
+      ]
+    }
+  ],
+  "profiler_inspection": {
+    "tool_version": "2.29.18.0",
+    "profile_executed": false,
+    "capture": "neuron-profile capture --neff MODEL.neff --session-file profile.ntff --num-exec N --profile-nth-exec NTH",
+    "summary": "neuron-profile view --neff-path MODEL.neff --session-file profile.ntff --output-format summary-json",
+    "note": "Help inspected only; commands and device profiling still require execution validation."
+  },
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1010-aws-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "packages": {
+      "torch": "2.9.1",
+      "numpy": "2.4.4",
+      "nki": "0.3.0+23928721754.g18aa1271",
+      "nki-stdlib": null,
+      "neuronx-cc": "2.24.5133.0+58f8de22",
+      "torch-neuronx": "2.9.0.2.13.24727+8e870898"
+    },
+    "settings": {
+      "NEURON_RT_VISIBLE_CORES": "0",
+      "NEURON_PLATFORM_TARGET_OVERRIDE": "trn1",
+      "NKI_PRECISE_FP": null,
+      "NEURON_CC_FLAGS": null,
+      "NKI_SIMULATOR": null
+    }
+  },
+  "hardware_cases_passed": 12,
+  "hardware_initial_candidate_comparisons": 60,
+  "hardware_checked_benchmark_pairs": 2640,
+  "simulator_initial_candidate_comparisons": 60
+}

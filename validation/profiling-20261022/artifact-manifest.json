@@ -1,0 +1,86 @@
+{
+  "candidate-capture.stderr.log": {
+    "bytes": 128,
+    "sha256": "f434c4e2a335b2042c8d003fe2c6e49a49238b1fd52ca73d3d9d5a08955dfc75"
+  },
+  "candidate-capture.stdout.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "candidate-summary-attempt2.json": {
+    "bytes": 4005,
+    "sha256": "7e76236e35e7006190df9ec028677044da780c10acd774a20ad01f2ee5d362ed"
+  },
+  "candidate-summary-attempt2.stderr.log": {
+    "bytes": 319,
+    "sha256": "98ec0d3e296b290210a3d9f56325d7db4833c416b1edd4bf6b7f52aed909cc1a"
+  },
+  "candidate-summary.json": {
+    "bytes": 246,
+    "sha256": "2d40a60a1d38ddf4d0a433cbc3dad9b54f118958468905062a52e36d3df2d7e9"
+  },
+  "candidate-summary.stderr.log": {
+    "bytes": 567,
+    "sha256": "f3e97abf0a2e079cebd584661f68c4a3854015f77be75da419f2cdb55e6a8472"
+  },
+  "candidate.neff": {
+    "bytes": 11264,
+    "sha256": "f8ca808e11106b6e950c088ace46cd54b70f275d58b6a47eb0534a4681758541"
+  },
+  "candidate_exec_3.ntff": {
+    "bytes": 63505,
+    "sha256": "bfda0302bfcbe20a932ef6d12132767ad5f5e9bd747e5451c4de5896e7f7d550"
+  },
+  "metadata.json": {
+    "bytes": 4297,
+    "sha256": "08ffcff1349d017323f3850ad076b75f70c91f25a21bb5493e061e2c937766d0"
+  },
+  "reference-capture.stderr.log": {
+    "bytes": 128,
+    "sha256": "51d5b33acb7792dbfc7723409e0246b8d67f352407fb4344fa65fea8ee76d55f"
+  },
+  "reference-capture.stdout.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "reference-summary-attempt2.json": {
+    "bytes": 3731,
+    "sha256": "79e5ddf6db7d2f39c97617611ef8c48a9f895ba875dbb77da77f73bf3825cbde"
+  },
+  "reference-summary-attempt2.stderr.log": {
+    "bytes": 319,
+    "sha256": "98ec0d3e296b290210a3d9f56325d7db4833c416b1edd4bf6b7f52aed909cc1a"
+  },
+  "reference-summary.json": {
+    "bytes": 246,
+    "sha256": "1f47a14c0a237f345a1984cc9228a6638a42547a685d2eaf813f516e97550bda"
+  },
+  "reference-summary.stderr.log": {
+    "bytes": 567,
+    "sha256": "73bb9f172e034d1594ce192a1a72bd9c98a960e59c4fff89f84c070f573b6d7e"
+  },
+  "reference.neff": {
+    "bytes": 31744,
+    "sha256": "6605d7a135c5f0f9fac07e6435e27e298b02c81e26a0b2757fa59cd29f4ae616"
+  },
+  "reference_exec_3.ntff": {
+    "bytes": 52320,
+    "sha256": "3b41e2e26113cd4d9a4795ec5b5dc949e7f3459e7a378597c634fa6c48f3a7fa"
+  },
+  "summary.json": {
+    "bytes": 2321,
+    "sha256": "67d7cab5e271e1fe7639227337361181e96ab43270930e8cab40f491c8d49cc9"
+  },
+  "terminology.stderr.log": {
+    "bytes": 128,
+    "sha256": "e8b53367c4c5252165aa2a03e2863daae4d538c275134dc5a614cfdb0cdf9315"
+  },
+  "terminology.stdout.txt": {
+    "bytes": 100280,
+    "sha256": "3e5919865169ccbff61e1247b67cbb5bd8b188a463fe0fbc6da8b7e32e6d7343"
+  },
+  "tool-version.txt": {
+    "bytes": 209,
+    "sha256": "dede1a2e9b9af485cf84c547bebd7d770e4b80dec29ae9fdf83195de888dbd60"
+  }
+}

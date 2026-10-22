@@ -16,6 +16,7 @@ dev = ["pytest>=8", "ruff>=0.11", "build>=1"]
 
 [project.scripts]
 nki-eval = "nki_eval.cli:main"
+nki-eval-suite = "nki_eval.suite:main"
 
 [project.urls]
 Repository = "https://github.com/sgdescent/nki-eval"

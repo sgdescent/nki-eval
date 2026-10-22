@@ -1,0 +1,480 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "correct": true,
+  "backend": "simulator",
+  "config": {
+    "reference": "/home/ubuntu/nki-eval-research-20261022/examples/matmul/reference.py:reference",
+    "candidate": "/home/ubuntu/nki-eval-research-20261022/examples/matmul/kernel.py:kernel",
+    "spec": {
+      "name": "tiled_matmul_pretransposed_lhs_bf16",
+      "rtol": 0.01,
+      "atol": 0.001,
+      "cases": [
+        {
+          "name": "single_tile_bf16",
+          "inputs": [
+            {
+              "shape": [
+                128,
+                128
+              ],
+              "dtype": "bfloat16"
+            },
+            {
+              "shape": [
+                128,
+                128
+              ],
+              "dtype": "bfloat16"
+            }
+          ],
+          "flops": 4194304,
+          "bytes_moved": 98304
+        },
+        {
+          "name": "multiple_tiles_bf16",
+          "inputs": [
+            {
+              "shape": [
+                256,
+                256
+              ],
+              "dtype": "bfloat16"
+            },
+            {
+              "shape": [
+                256,
+                1024
+              ],
+              "dtype": "bfloat16"
+            }
+          ],
+          "flops": 134217728,
+          "bytes_moved": 1179648
+        },
+        {
+          "name": "all_dimension_tails_bf16",
+          "inputs": [
+            {
+              "shape": [
+                129,
+                17
+              ],
+              "dtype": "bfloat16"
+            },
+            {
+              "shape": [
+                129,
+                31
+              ],
+              "dtype": "bfloat16"
+            }
+          ],
+          "flops": 135966,
+          "bytes_moved": 13438
+        }
+      ]
+    },
+    "backend": "simulator",
+    "trials": 5,
+    "seed": 0,
+    "warmup": 10,
+    "iterations": 100,
+    "threads": 1,
+    "compiler_args": [],
+    "correctness_only": true,
+    "source": {
+      "reference": {
+        "file": "/home/ubuntu/nki-eval-research-20261022/examples/matmul/reference.py",
+        "symbol": "reference",
+        "sha256": "63054aaa268f71fb13a02a8b6f83d3a7029323e357fba3c180979b4dadbcf92e"
+      },
+      "candidate": {
+        "file": "/home/ubuntu/nki-eval-research-20261022/examples/matmul/kernel.py",
+        "symbol": "kernel",
+        "sha256": "a498eed82f1e62a4ce13e793421886235762c5c487a60bf80c802011a06538f2"
+      }
+    }
+  },
+  "cases": [
+    {
+      "name": "single_tile_bf16",
+      "passed": true,
+      "trials": [
+        {
+          "seed": 0,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  128
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 16384,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 1,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  128
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 16384,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 2,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  128
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 16384,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 3,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  128
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 16384,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 4,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  128
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 16384,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        }
+      ],
+      "performance": null,
+      "preparation": {
+        "precise_fp": true
+      }
+    },
+    {
+      "name": "multiple_tiles_bf16",
+      "passed": true,
+      "trials": [
+        {
+          "seed": 5,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  256,
+                  1024
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 262144,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.125,
+                "max_rel_error_finite": 0.125
+              }
+            ]
+          }
+        },
+        {
+          "seed": 6,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  256,
+                  1024
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 262144,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0625,
+                "max_rel_error_finite": 0.007407407407407408
+              }
+            ]
+          }
+        },
+        {
+          "seed": 7,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  256,
+                  1024
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 262144,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.03125,
+                "max_rel_error_finite": 0.012903225806451613
+              }
+            ]
+          }
+        },
+        {
+          "seed": 8,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  256,
+                  1024
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 262144,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0625,
+                "max_rel_error_finite": 0.007246376811594203
+              }
+            ]
+          }
+        },
+        {
+          "seed": 9,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  256,
+                  1024
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 262144,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.03125,
+                "max_rel_error_finite": 0.007751937984496124
+              }
+            ]
+          }
+        }
+      ],
+      "performance": null,
+      "preparation": {
+        "precise_fp": true
+      }
+    },
+    {
+      "name": "all_dimension_tails_bf16",
+      "passed": true,
+      "trials": [
+        {
+          "seed": 10,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  31
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 527,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 11,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  31
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 527,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 12,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  31
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 527,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 13,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  31
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 527,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 14,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  31
+                ],
+                "dtype": "torch.bfloat16",
+                "elements": 527,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        }
+      ],
+      "performance": null,
+      "preparation": {
+        "precise_fp": true
+      }
+    }
+  ],
+  "performance": null,
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1010-aws-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "packages": {
+      "torch": "2.9.1",
+      "numpy": "2.4.4",
+      "nki": "0.3.0+23928721754.g18aa1271",
+      "nki-stdlib": null,
+      "neuronx-cc": "2.24.5133.0+58f8de22",
+      "torch-neuronx": "2.9.0.2.13.24727+8e870898"
+    },
+    "settings": {
+      "NEURON_RT_VISIBLE_CORES": "0",
+      "NEURON_PLATFORM_TARGET_OVERRIDE": "trn1",
+      "NKI_PRECISE_FP": "1",
+      "NEURON_CC_FLAGS": null,
+      "NKI_SIMULATOR": null
+    }
+  },
+  "native_check": {
+    "kind": "static_import_and_jit_lint",
+    "security_boundary": false,
+    "enabled": true,
+    "violations": []
+  },
+  "elapsed_s": 0.4493397090000144,
+  "artifacts": {
+    "directory": "/home/ubuntu/nki-eval-runs/20261022/native-simulator-attempt1/ed78a5d604ae48a1941379360da693d3",
+    "report": "/home/ubuntu/nki-eval-runs/20261022/native-simulator-attempt1/ed78a5d604ae48a1941379360da693d3/result.json",
+    "log": "/home/ubuntu/nki-eval-runs/20261022/native-simulator-attempt1/ed78a5d604ae48a1941379360da693d3/worker.log"
+  }
+}

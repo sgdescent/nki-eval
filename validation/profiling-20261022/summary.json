@@ -1,0 +1,65 @@
+{
+  "experiment": "bounded_device_profiling_smoke_test",
+  "date": "2026-10-22",
+  "workload": "matmul",
+  "case": "multiple_tiles_bf16",
+  "shapes": {
+    "lhs_t": [
+      256,
+      256
+    ],
+    "rhs": [
+      256,
+      1024
+    ],
+    "output": [
+      256,
+      1024
+    ]
+  },
+  "dtype": "bfloat16",
+  "device": "trn1.2xlarge",
+  "visible_neuron_cores": "0",
+  "capture_executions_per_model": 3,
+  "profiled_execution": 3,
+  "profiles_per_model": 1,
+  "input_policy": "profiler_default_allocated_inputs",
+  "correctness_checked_in_profile": false,
+  "timing_scope": "profiler_on_device_execution",
+  "duration_source_field": "total_time",
+  "duration_source_unit": "seconds",
+  "unit_verification": "Installed neuron-profile view --terminology; saved terminology.stdout.txt",
+  "captures": [
+    {
+      "actor": "candidate",
+      "total_time_s": 2.2360086e-05,
+      "total_time_us": 22.360086000000003,
+      "trace_events": 1133,
+      "matmul_instructions": 8,
+      "neff_sha256": "f8ca808e11106b6e950c088ace46cd54b70f275d58b6a47eb0534a4681758541",
+      "trace_sha256": "bfda0302bfcbe20a932ef6d12132767ad5f5e9bd747e5451c4de5896e7f7d550",
+      "trace_bytes": 63505,
+      "raw_summary": "candidate-summary-attempt2.json",
+      "trace": "candidate_exec_3.ntff"
+    },
+    {
+      "actor": "reference",
+      "total_time_s": 2.3202204e-05,
+      "total_time_us": 23.202204000000002,
+      "trace_events": 802,
+      "matmul_instructions": 8,
+      "neff_sha256": "6605d7a135c5f0f9fac07e6435e27e298b02c81e26a0b2757fa59cd29f4ae616",
+      "trace_sha256": "3b41e2e26113cd4d9a4795ec5b5dc949e7f3459e7a378597c634fa6c48f3a7fa",
+      "trace_bytes": 52320,
+      "raw_summary": "reference-summary-attempt2.json",
+      "trace": "reference_exec_3.ntff"
+    }
+  ],
+  "limitations": [
+    "One profiled execution per model; no latency distribution or confidence interval.",
+    "Profiler-default allocated inputs were not matched to evaluator input seeds and outputs were not checked during capture.",
+    "Profiler timing excludes transfers and host overhead; do not combine with evaluator host-request speedups.",
+    "summary-json disables SBUF/PSUM usage-over-time simulation; warning retained.",
+    "First export attempt used an unsuffixed trace filename and failed; corrected exports use *_exec_3.ntff."
+  ]
+}

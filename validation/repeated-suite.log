@@ -1,0 +1,193 @@
+{
+  "complete": true,
+  "all_passed": true,
+  "runs_completed": 18,
+  "runs_planned": 18,
+  "runs_passed": 18,
+  "timing_scope": "neuron_host_request_including_transfers",
+  "benchmark_protocol": "fresh_inputs_checked_v1",
+  "performance": [
+    {
+      "workload": "add",
+      "case": "aligned_fp32",
+      "repeats": 3,
+      "candidate_median_ms": 0.2973025,
+      "reference_median_ms": 0.301295,
+      "median_speedup": 1.0134290831728625,
+      "min_speedup": 1.0072703466902648,
+      "max_speedup": 1.014714471494792
+    },
+    {
+      "workload": "add",
+      "case": "bf16",
+      "repeats": 3,
+      "candidate_median_ms": 0.19976850000000002,
+      "reference_median_ms": 0.196917,
+      "median_speedup": 1.0094384249769106,
+      "min_speedup": 0.9629923050402353,
+      "max_speedup": 1.0225189951110076
+    },
+    {
+      "workload": "add",
+      "case": "tails_fp32",
+      "repeats": 3,
+      "candidate_median_ms": 0.341765,
+      "reference_median_ms": 0.30451700000000004,
+      "median_speedup": 0.8835466396636619,
+      "min_speedup": 0.8807727497490592,
+      "max_speedup": 0.9211256272584963
+    },
+    {
+      "workload": "add",
+      "case": "zeros",
+      "repeats": 3,
+      "candidate_median_ms": 0.184853,
+      "reference_median_ms": 0.17410599999999998,
+      "median_speedup": 0.9515681696405023,
+      "min_speedup": 0.9277365553438928,
+      "max_speedup": 0.9604821128139657
+    },
+    {
+      "workload": "fused_relu",
+      "case": "mixed_signs",
+      "repeats": 3,
+      "candidate_median_ms": 0.29540750000000005,
+      "reference_median_ms": 0.2966305,
+      "median_speedup": 1.0048278259906904,
+      "min_speedup": 1.0041400438377495,
+      "max_speedup": 1.0080834697790162
+    },
+    {
+      "workload": "fused_relu",
+      "case": "negative",
+      "repeats": 3,
+      "candidate_median_ms": 0.193734,
+      "reference_median_ms": 0.1944125,
+      "median_speedup": 1.0028201381343125,
+      "min_speedup": 0.9992696171038641,
+      "max_speedup": 1.0057657089054204
+    },
+    {
+      "workload": "layernorm",
+      "case": "aligned_fp32",
+      "repeats": 3,
+      "candidate_median_ms": 0.261363,
+      "reference_median_ms": 0.26459350000000004,
+      "median_speedup": 1.0123602040074533,
+      "min_speedup": 0.9936248442005908,
+      "max_speedup": 1.0185191842930472
+    },
+    {
+      "workload": "layernorm",
+      "case": "constant_and_row_tail_fp32",
+      "repeats": 3,
+      "candidate_median_ms": 0.286752,
+      "reference_median_ms": 0.2591445,
+      "median_speedup": 0.9145217216773827,
+      "min_speedup": 0.9037234265148979,
+      "max_speedup": 0.9193304432308306
+    },
+    {
+      "workload": "layernorm",
+      "case": "small_bf16",
+      "repeats": 3,
+      "candidate_median_ms": 0.18262499999999998,
+      "reference_median_ms": 0.1862365,
+      "median_speedup": 1.0197754962354553,
+      "min_speedup": 1.0009678711913,
+      "max_speedup": 1.0412972015837927
+    },
+    {
+      "workload": "matmul",
+      "case": "all_dimension_tails_bf16",
+      "repeats": 3,
+      "candidate_median_ms": 0.226081,
+      "reference_median_ms": 0.2204835,
+      "median_speedup": 0.9723315611035795,
+      "min_speedup": 0.9720616382384244,
+      "max_speedup": 0.9752411746232544
+    },
+    {
+      "workload": "matmul",
+      "case": "multiple_tiles_bf16",
+      "repeats": 3,
+      "candidate_median_ms": 0.368105,
+      "reference_median_ms": 0.372391,
+      "median_speedup": 1.011332094667316,
+      "min_speedup": 0.9915527211239379,
+      "max_speedup": 1.011643416959835
+    },
+    {
+      "workload": "matmul",
+      "case": "single_tile_bf16",
+      "repeats": 3,
+      "candidate_median_ms": 0.21363100000000002,
+      "reference_median_ms": 0.2208165,
+      "median_speedup": 1.0193249863908547,
+      "min_speedup": 1.0062607214550765,
+      "max_speedup": 1.0336350997748454
+    },
+    {
+      "workload": "row_sum",
+      "case": "aligned_fp32",
+      "repeats": 3,
+      "candidate_median_ms": 0.225405,
+      "reference_median_ms": 0.2267845,
+      "median_speedup": 1.0006208387257287,
+      "min_speedup": 0.9993817000635716,
+      "max_speedup": 1.0061200949402187
+    },
+    {
+      "workload": "row_sum",
+      "case": "row_and_width_tails_fp32",
+      "repeats": 3,
+      "candidate_median_ms": 0.26034349999999995,
+      "reference_median_ms": 0.2472455,
+      "median_speedup": 0.9611339524453006,
+      "min_speedup": 0.9353546372388788,
+      "max_speedup": 1.0571762085058802
+    },
+    {
+      "workload": "row_sum",
+      "case": "small_bf16",
+      "repeats": 3,
+      "candidate_median_ms": 0.17987350000000002,
+      "reference_median_ms": 0.17894300000000002,
+      "median_speedup": 0.9972120623804653,
+      "min_speedup": 0.9942548214494076,
+      "max_speedup": 0.9975649553714139
+    },
+    {
+      "workload": "softmax",
+      "case": "aligned_fp32",
+      "repeats": 3,
+      "candidate_median_ms": 0.269065,
+      "reference_median_ms": 0.2617795,
+      "median_speedup": 0.9729555415487899,
+      "min_speedup": 0.9729228996710831,
+      "max_speedup": 0.9758559393790994
+    },
+    {
+      "workload": "softmax",
+      "case": "large_logits_and_row_tail_fp32",
+      "repeats": 3,
+      "candidate_median_ms": 0.27791849999999996,
+      "reference_median_ms": 0.2668075,
+      "median_speedup": 0.9738246361947449,
+      "min_speedup": 0.9079484605376154,
+      "max_speedup": 0.9758148521958778
+    },
+    {
+      "workload": "softmax",
+      "case": "small_bf16",
+      "repeats": 3,
+      "candidate_median_ms": 0.179399,
+      "reference_median_ms": 0.1801125,
+      "median_speedup": 1.0063556362620478,
+      "min_speedup": 0.9570175744519889,
+      "max_speedup": 1.034874776336546
+    }
+  ],
+  "geometric_mean_speedup": 0.9841468105786068,
+  "note": "Each speedup is the median of paired run ratios, not necessarily the ratio of the displayed medians. The geometric mean weights cases equally. Repeat ranges are descriptive, not confidence intervals. Failed, incomplete, changed-source, mixed-protocol and correctness-only suites have no aggregate performance. Source hashes cover entry files, not imported dependencies."
+}

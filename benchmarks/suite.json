@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "workloads": [
+    {"name": "add", "reference": "../examples/add/reference.py:reference", "candidate": "../examples/add/kernel.py:kernel", "cpu_candidate": "../examples/add/cpu_candidate.py:kernel", "spec": "../examples/add/workload.json"},
+    {"name": "fused_relu", "reference": "../examples/fused_relu/reference.py:reference", "candidate": "../examples/fused_relu/kernel.py:kernel", "spec": "../examples/fused_relu/workload.json"},
+    {"name": "row_sum", "reference": "../examples/row_sum/reference.py:reference", "candidate": "../examples/row_sum/kernel.py:kernel", "spec": "../examples/row_sum/workload.json"},
+    {"name": "softmax", "reference": "../examples/softmax/reference.py:reference", "candidate": "../examples/softmax/kernel.py:kernel", "spec": "../examples/softmax/workload.json"},
+    {"name": "layernorm", "reference": "../examples/layernorm/reference.py:reference", "candidate": "../examples/layernorm/kernel.py:kernel", "spec": "../examples/layernorm/workload.json"},
+    {"name": "matmul", "reference": "../examples/matmul/reference.py:reference", "candidate": "../examples/matmul/kernel.py:kernel", "spec": "../examples/matmul/workload.json"}
+  ]
+}

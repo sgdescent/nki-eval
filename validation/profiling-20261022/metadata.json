@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-22",
+  "workload": "matmul",
+  "case": "multiple_tiles_bf16",
+  "input_policy": "profiler_default_allocated_inputs",
+  "correctness_claim": false,
+  "environment": {
+    "NEURON_PLATFORM_TARGET_OVERRIDE": "trn1",
+    "NEURON_RT_VISIBLE_CORES": "0"
+  },
+  "operations": [
+    {
+      "actor": "candidate",
+      "neff_sha256": "f8ca808e11106b6e950c088ace46cd54b70f275d58b6a47eb0534a4681758541",
+      "neff_bytes": 11264,
+      "source_neff": "/home/ubuntu/nki-eval-runs/20261022/native-hardware-attempt1/6232d4b0f99e411f9ae26332a4602df1/case_1/candidate/graph.neff",
+      "capture_command": [
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=10s",
+        "120s",
+        "/opt/aws/neuron/bin/neuron-profile",
+        "capture",
+        "--neff",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/candidate.neff",
+        "--session-file",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/candidate.ntff",
+        "--num-exec",
+        "3",
+        "--profile-nth-exec",
+        "3"
+      ],
+      "capture_exit_code": 0,
+      "capture_started_at_utc": "2026-10-22T22:19:00.200428+00:00",
+      "capture_finished_at_utc": "2026-10-22T22:19:06.422547+00:00",
+      "summary_command": [
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=10s",
+        "120s",
+        "/opt/aws/neuron/bin/neuron-profile",
+        "view",
+        "--neff-path",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/candidate.neff",
+        "--session-file",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/candidate.ntff",
+        "--output-format",
+        "summary-json"
+      ],
+      "summary_exit_code": 1,
+      "summary_retry_command": [
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=10s",
+        "120s",
+        "/opt/aws/neuron/bin/neuron-profile",
+        "view",
+        "--neff-path",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/candidate.neff",
+        "--session-file",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/candidate_exec_3.ntff",
+        "--output-format",
+        "summary-json"
+      ],
+      "summary_retry_exit_code": 0
+    },
+    {
+      "actor": "reference",
+      "neff_sha256": "6605d7a135c5f0f9fac07e6435e27e298b02c81e26a0b2757fa59cd29f4ae616",
+      "neff_bytes": 31744,
+      "source_neff": "/home/ubuntu/nki-eval-runs/20261022/native-hardware-attempt1/6232d4b0f99e411f9ae26332a4602df1/case_1/reference/graph.neff",
+      "capture_command": [
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=10s",
+        "120s",
+        "/opt/aws/neuron/bin/neuron-profile",
+        "capture",
+        "--neff",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/reference.neff",
+        "--session-file",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/reference.ntff",
+        "--num-exec",
+        "3",
+        "--profile-nth-exec",
+        "3"
+      ],
+      "capture_exit_code": 0,
+      "capture_started_at_utc": "2026-10-22T22:19:06.486950+00:00",
+      "capture_finished_at_utc": "2026-10-22T22:19:14.961390+00:00",
+      "summary_command": [
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=10s",
+        "120s",
+        "/opt/aws/neuron/bin/neuron-profile",
+        "view",
+        "--neff-path",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/reference.neff",
+        "--session-file",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/reference.ntff",
+        "--output-format",
+        "summary-json"
+      ],
+      "summary_exit_code": 1,
+      "summary_retry_command": [
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=10s",
+        "120s",
+        "/opt/aws/neuron/bin/neuron-profile",
+        "view",
+        "--neff-path",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/reference.neff",
+        "--session-file",
+        "/home/ubuntu/nki-eval-runs/20261022/profiling-smoke/reference_exec_3.ntff",
+        "--output-format",
+        "summary-json"
+      ],
+      "summary_retry_exit_code": 0
+    }
+  ],
+  "terminology_command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=10s",
+    "120s",
+    "/opt/aws/neuron/bin/neuron-profile",
+    "view",
+    "--terminology"
+  ],
+  "terminology_exit_code": 0
+}

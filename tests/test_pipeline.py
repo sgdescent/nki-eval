@@ -83,3 +83,88 @@ def test_benchmark_failure_preserves_correctness_but_not_success(monkeypatch, tm
     assert result["correct"]
     assert result["status"] == "error"
     assert result["performance"] is None
+
+
+def test_later_benchmark_failure_erases_earlier_performance(monkeypatch, tmp_path):
+    calls = {}
+
+    def candidate(x):
+        size = x.numel()
+        calls[size] = calls.get(size, 0) + 1
+        return -x if size == 2 or calls[size] <= 2 else x
+
+    monkeypatch.setattr(worker, "load", lambda name: torch.neg if name == "ref" else candidate)
+    result = worker.run(request(), tmp_path)
+    assert result["status"] == "incorrect"
+    assert result["correct"] is False
+    assert calls[2] == 4  # Earlier case finished both correctness and timing.
+    assert result["cases"][0]["passed"]
+    assert result["error"]["case"] == "bad"
+    assert result["performance"] is None
+    assert all(case["performance"] is None for case in result["cases"])
+
+
+def test_benchmark_baseline_failure_invalidates_speedup(monkeypatch, tmp_path):
+    monkeypatch.setattr(worker, "load", lambda _: torch.neg)
+
+    class BadTimedBaseline:
+        timing_scope = "test"
+
+        def prepare(self, candidate, reference, inputs, workdir, compiler_args):
+            calls = 0
+
+            def baseline(x):
+                nonlocal calls
+                calls += 1
+                return -x if calls <= 2 else x
+
+            return candidate, baseline, {}
+
+    monkeypatch.setitem(worker.BACKENDS, "cpu", BadTimedBaseline)
+    result = worker.run(request(), tmp_path)
+    assert result["status"] == "incorrect"
+    assert result["error"]["actor"] == "baseline"
+    assert result["error"]["phase"] == "timed"
+    assert result["performance"] is None
+
+
+def test_baseline_mutation_invalidates_correctness(monkeypatch, tmp_path):
+    monkeypatch.setattr(worker, "load", lambda _: torch.neg)
+
+    class MutatingBaseline:
+        timing_scope = "test"
+
+        def prepare(self, candidate, reference, inputs, workdir, compiler_args):
+            return candidate, lambda x: x.neg_(), {}
+
+    monkeypatch.setitem(worker.BACKENDS, "cpu", MutatingBaseline)
+    result = worker.run(request(), tmp_path)
+    assert result["status"] == "incorrect"
+    assert "mutated" in str(result["cases"][0]["trials"][0]["baseline"])
+    assert result["performance"] is None
+
+
+def test_benchmark_seed_ranges_follow_all_correctness_trials(monkeypatch, tmp_path):
+    monkeypatch.setattr(worker, "load", lambda _: torch.neg)
+    config = request()
+    config["warmup"] = 1
+    config["seed"] = 101
+    result = worker.run(config, tmp_path)
+    assert result["status"] == "passed"
+    first, second = result["cases"]
+    assert [trial["seed"] for trial in first["trials"]] == [101, 102]
+    assert [trial["seed"] for trial in second["trials"]] == [103, 104]
+    assert first["performance"]["validation"]["seed_start"] == 105
+    assert first["performance"]["validation"]["seed_end"] == 107
+    assert second["performance"]["validation"]["seed_start"] == 108
+    assert second["performance"]["validation"]["seed_end"] == 110
+
+
+def test_benchmark_seed_overflow_is_configuration_error(monkeypatch, tmp_path):
+    monkeypatch.setattr(worker, "load", lambda _: torch.neg)
+    config = request()
+    config["seed"] = 2**63 - 4  # Correctness alone fits; timing would overflow.
+    result = worker.run(config, tmp_path)
+    assert result["status"] == "error"
+    assert result["error"]["category"] == "configuration_error"
+    assert result["performance"] is None

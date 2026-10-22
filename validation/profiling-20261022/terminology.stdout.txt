@@ -1,0 +1,920 @@
++------------------------------------------------+--------------------------------+------------------------+
+|                      NAME                      |          DESCRIPTION           |        CATEGORY        |
++------------------------------------------------+--------------------------------+------------------------+
+| activate_instruction_count                     | Number of                      | scalar_engine          |
+|                                                | ACTIVATE/ACTIVATE_QUANTIZE     |                        |
+|                                                | instructions.                  |                        |
+| activate_instruction_time                      | Total duration of all          | scalar_engine          |
+|                                                | ACTIVATE/ACTIVATE_QUANTIZE     |                        |
+|                                                | instructions. Overlapping      |                        |
+|                                                | instructions are added up.     |                        |
+|                                                | Units are in seconds.          |                        |
+| cc_cores_instruction_active_time               | Duration of time when at least | cc_engine              |
+|                                                | one Collective Communication   |                        |
+|                                                | (CC) core is processing        |                        |
+|                                                | an instruction (excluding      |                        |
+|                                                | semaphore waits).              |                        |
+| cc_cores_instruction_active_time_percent       | Percentage of time when        | cc_engine              |
+|                                                | at least one Collective        |                        |
+|                                                | Communication (CC) core is     |                        |
+|                                                | processing an instruction      |                        |
+|                                                | (excluding semaphore waits).   |                        |
+| cc_cores_instruction_count                     | Number of instructions on all  | cc_engine              |
+|                                                | Collective Communication (CC)  |                        |
+|                                                | cores.                         |                        |
+| cc_cores_instruction_time                      | Total duration of              | cc_engine              |
+|                                                | instructions on all Collective |                        |
+|                                                | Communication (CC) cores.      |                        |
+|                                                | Overlapping instructions on    |                        |
+|                                                | the cores are added together.  |                        |
+| cc_op_active_time                              | Duration of time when at least | cc_engine              |
+|                                                | one Collective Communication   |                        |
+|                                                | (CC) operation is active.      |                        |
+|                                                | Units are in seconds.          |                        |
+| cc_op_active_time_percent                      | Percentage of time when        | cc_engine              |
+|                                                | at least one Collective        |                        |
+|                                                | Communication (CC) operation   |                        |
+|                                                | is active.                     |                        |
+| cc_op_count                                    | Number of Collective           | cc_engine              |
+|                                                | Communication (CC) operations. |                        |
+| cc_op_time                                     | Total duration of all          | cc_engine              |
+|                                                | Collective Communication       |                        |
+|                                                | (CC) operations. Overlapping   |                        |
+|                                                | operations are added together. |                        |
+|                                                | Units are in seconds.          |                        |
+| collectives_version                            | The Neuron Collectives library | system                 |
+|                                                | version with which this        |                        |
+|                                                | profile was captured.          |                        |
+| compiler_version                               | The Neuron Compiler version    | system                 |
+|                                                | which built the NEFF that was  |                        |
+|                                                | executed during this profile.  |                        |
+|                                                | This is the tool_version field |                        |
+|                                                | in the NEFF's info.json file.  |                        |
+| dma_active_cycles                              | dma_active_time multiplied by  | data_movement          |
+|                                                | NC clock speed.                |                        |
+| dma_active_time                                | Duration of time when at least | data_movement          |
+|                                                | one DMA packet is transfering. |                        |
+| dma_active_time_percent                        | Percentage of time when        | data_movement          |
+|                                                | at least one DMA packet is     |                        |
+|                                                | transfering.                   |                        |
+| dma_packet_time                                | Total duration of all DMA      | data_movement          |
+|                                                | engine packets. Overlapping    |                        |
+|                                                | DMA packets across all DMA     |                        |
+|                                                | engines are added together.    |                        |
+| dma_queue_count                                | Total number of DMA queues     | data_movement          |
+|                                                | specified in the NEFF          |                        |
+|                                                | including all input, output,   |                        |
+|                                                | and weight DMA queues for      |                        |
+|                                                | different DMA engines.         |                        |
+| dma_transfer_average_bytes                     | Total transfer size of all     | data_movement          |
+|                                                | DMA packets divided by the     |                        |
+|                                                | total number of DMA transfers. |                        |
+|                                                | A DMA transfer is a high       |                        |
+|                                                | level compiler construct       |                        |
+|                                                | representing the movement of   |                        |
+|                                                | one or more tensors, while     |                        |
+|                                                | DMA packets are standard       |                        |
+|                                                | DMA terminology and are the    |                        |
+|                                                | smallest unit of DMA data      |                        |
+|                                                | movement displayed in the      |                        |
+|                                                | Neuron Profiler timeline.      |                        |
+|                                                | A single DMA transfer is       |                        |
+|                                                | fulfilled by multiple DMA      |                        |
+|                                                | packets. The Neuron Profile    |                        |
+|                                                | timeline displays DMA Packets  |                        |
+|                                                | when "Show expanded DMA" is    |                        |
+|                                                | ON, otherwise it aggregates    |                        |
+|                                                | them into DMA transfers.       |                        |
+| dma_transfer_count                             | Number of DMA transfers.       | data_movement          |
+|                                                | A DMA transfer is a high       |                        |
+|                                                | level compiler construct       |                        |
+|                                                | representing the movement of   |                        |
+|                                                | one or more tensors, while     |                        |
+|                                                | DMA packets are standard       |                        |
+|                                                | DMA terminology and are the    |                        |
+|                                                | smallest unit of DMA data      |                        |
+|                                                | movement displayed in the      |                        |
+|                                                | Neuron Profiler timeline.      |                        |
+|                                                | A single DMA transfer is       |                        |
+|                                                | fulfilled by multiple DMA      |                        |
+|                                                | packets. The Neuron Profile    |                        |
+|                                                | timeline displays DMA Packets  |                        |
+|                                                | when "Show expanded DMA" is    |                        |
+|                                                | ON, otherwise it aggregates    |                        |
+|                                                | them into DMA transfers.       |                        |
+| dma_transfer_time                              | Total duration of all DMA      | data_movement          |
+|                                                | transfers. A DMA transfer is a |                        |
+|                                                | high level compiler construct  |                        |
+|                                                | representing the movement of   |                        |
+|                                                | one or more tensors, while     |                        |
+|                                                | DMA packets are standard       |                        |
+|                                                | DMA terminology and are the    |                        |
+|                                                | smallest unit of DMA data      |                        |
+|                                                | movement displayed in the      |                        |
+|                                                | Neuron Profiler timeline.      |                        |
+|                                                | A single DMA transfer is       |                        |
+|                                                | fulfilled by multiple DMA      |                        |
+|                                                | packets. The Neuron Profile    |                        |
+|                                                | timeline displays DMA Packets  |                        |
+|                                                | when "Show expanded DMA" is    |                        |
+|                                                | ON, otherwise it aggregates    |                        |
+|                                                | them into DMA transfers.       |                        |
+| dma_transfer_total_bytes                       | Total transfer size of all DMA | data_movement          |
+|                                                | transfers. A DMA transfer is a |                        |
+|                                                | high level compiler construct  |                        |
+|                                                | representing the movement of   |                        |
+|                                                | one or more tensors.           |                        |
+| driver_version                                 | The Neuron driver version      | system                 |
+|                                                | with which this profile was    |                        |
+|                                                | captured.                      |                        |
+| dynamic_dma_active_time_percent                | Percentage of time when        | data_movement          |
+|                                                | at least one dynamically       |                        |
+|                                                | generated DMA packet is        |                        |
+|                                                | transfering.                   |                        |
+| dynamic_dma_packet_percent                     | Percentage of DMA packets      | data_movement          |
+|                                                | that are dynamically           |                        |
+|                                                | generated during execution     |                        |
+|                                                | (generally higher means better |                        |
+|                                                | performance).                  |                        |
+| dynamic_dma_size_percent                       | Percentage of total transfer   | data_movement          |
+|                                                | size for DMA packets that are  |                        |
+|                                                | dynamically generated during   |                        |
+|                                                | execution.                     |                        |
+| event_count                                    | Total number of event          | overall_stats          |
+|                                                | notifications, such as for     |                        |
+|                                                | semaphore updates. This count  |                        |
+|                                                | is less than trace_count       |                        |
+|                                                | because it does not count      |                        |
+|                                                | instructions.                  |                        |
+| gpsimd_engine_active_time                      | Duration of time when GpSimd   | gpsimd_engine          |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits). Units are in |                        |
+|                                                | seconds.                       |                        |
+| gpsimd_engine_active_time_percent              | Percentage of time when GpSimd | gpsimd_engine          |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits).              |                        |
+| gpsimd_engine_instruction_count                | Number of GpSimd Engine        | gpsimd_engine          |
+|                                                | instructions.                  |                        |
+| gpsimd_engine_instruction_time                 | Total duration of all          | gpsimd_engine          |
+|                                                | GpSimd engine instructions.    |                        |
+|                                                | Overlapping instructions on    |                        |
+|                                                | the engine are added together. |                        |
+|                                                | Units are in seconds.          |                        |
+| hardware_dynamic_dma_active_time               | Duration of time when at least | hardware_data_movement |
+|                                                | one hardware generated DMA     |                        |
+|                                                | packet is transfering.         |                        |
+| hardware_dynamic_dma_active_time_percent       | Percentage of time when at     | hardware_data_movement |
+|                                                | least one hardware generated   |                        |
+|                                                | DMA packet is transfering.     |                        |
+| hardware_dynamic_dma_packet_count              | Number of DMA packets that     | hardware_data_movement |
+|                                                | are dynamically generated      |                        |
+|                                                | during execution via dedicated |                        |
+|                                                | hardware.                      |                        |
+| hardware_dynamic_dma_packet_percent            | Percentage of DMA packets      | hardware_data_movement |
+|                                                | that are dynamically generated |                        |
+|                                                | during execution via dedicated |                        |
+|                                                | hardware.                      |                        |
+| hardware_dynamic_dma_size                      | Total transfer size of DMA     | hardware_data_movement |
+|                                                | packets that are dynamically   |                        |
+|                                                | generated during execution via |                        |
+|                                                | dedicated hardware.            |                        |
+| hardware_dynamic_dma_size_percent              | Percentage of total transfer   | hardware_data_movement |
+|                                                | size for DMA packets that      |                        |
+|                                                | are dynamically generated via  |                        |
+|                                                | dedicated hardware.            |                        |
+| hardware_flops                                 | Hardware FLOPs is the FLOP     | overall_stats          |
+|                                                | count calculated from all      |                        |
+|                                                | Tensor Engine instructions     |                        |
+|                                                | that Neuron Compiler emits     |                        |
+|                                                | for execution. This metric     |                        |
+|                                                | is typically higher than       |                        |
+|                                                | model_flops because it         |                        |
+|                                                | includes matmul instructions   |                        |
+|                                                | for data movement (i.e.        |                        |
+|                                                | transposes and partition       |                        |
+|                                                | broadcasts) inserted by the    |                        |
+|                                                | compiler to resolve memory     |                        |
+|                                                | layout conflicts. Note, each   |                        |
+|                                                | floating point multiply-add    |                        |
+|                                                | is counted as two FLOPs.       |                        |
+|                                                | Calculated as the sum of (2    |                        |
+|                                                | * tensor_matrix_active_rows    |                        |
+|                                                | * tensor_matrix_active_cols    |                        |
+|                                                | * elements) for each matrix    |                        |
+|                                                | multiplication.                |                        |
+| hbm_read_bytes                                 | Total bytes of data read from  | data_movement          |
+|                                                | HBM using the DMA engines.     |                        |
+|                                                | This does not include data     |                        |
+|                                                | movement from HBM to host DRAM |                        |
+|                                                | because this happens after the |                        |
+|                                                | execution profiling session.   |                        |
+| hbm_write_bytes                                | Total bytes of data written    | data_movement          |
+|                                                | to HBM using the DMA engines.  |                        |
+|                                                | This does not include data     |                        |
+|                                                | movement from host DRAM to     |                        |
+|                                                | HBM because this happens       |                        |
+|                                                | before the execution profiling |                        |
+|                                                | session begins.                |                        |
+| hfu_estimated_percent                          | HFU is Hardware FLOPs          | tensor_engine          |
+|                                                | Utilization. This reflects     |                        |
+|                                                | the Tensor Engine utilization  |                        |
+|                                                | calculated from all Tensor     |                        |
+|                                                | Engine instructions that       |                        |
+|                                                | Neuron Compiler emits for      |                        |
+|                                                | execution. This metric         |                        |
+|                                                | is typically higher than       |                        |
+|                                                | mfu_hlo_estimated_percent      |                        |
+|                                                | because it includes matmul     |                        |
+|                                                | instructions for data movement |                        |
+|                                                | (i.e. transposes and partition |                        |
+|                                                | broadcasts) inserted by the    |                        |
+|                                                | compiler to resolve memory     |                        |
+|                                                | layout conflicts. Note, each   |                        |
+|                                                | floating point multiply-add    |                        |
+|                                                | is counted as two FLOPs.       |                        |
+|                                                | Calculated as hardware_flops / |                        |
+|                                                | (tensor_engine_max_ops_per_sec |                        |
+|                                                | * total_time) where            |                        |
+|                                                | tensor_engine_max_ops_per_sec  |                        |
+|                                                | is 2 times the number of       |                        |
+|                                                | Tensor Engine elements times   |                        |
+|                                                | the clock speed.               |                        |
+| input_queue_bytes                              | Total transfer size of DMA     | data_movement          |
+|                                                | blocks in "input" queues. The  |                        |
+|                                                | "input" queues are primarily   |                        |
+|                                                | for loading input data from    |                        |
+|                                                | HBM to the State Buffer.       |                        |
+| inputs_and_weights_size_bytes                  | Size of input tensors and      | data_movement          |
+|                                                | weight tensors.                |                        |
+| inputs_outputs_weights_size_bytes              | Total size of input tensors,   | data_movement          |
+|                                                | output tensors, and weight     |                        |
+|                                                | tensors. This is the total     |                        |
+|                                                | necessary HBM reads and        |                        |
+|                                                | writes excluding intermediate  |                        |
+|                                                | tensors, spills and reloads.   |                        |
+| instance_type                                  | The instance type on which     | system                 |
+|                                                | this profile was captured.     |                        |
+| matmul_instruction_count                       | Total number of MATMUL         | tensor_engine          |
+|                                                | instructions.                  |                        |
+| mbu_estimated_percent                          | Memory Bandwidth Utilization   | data_movement          |
+|                                                | (MBU) is the achieved HBM      |                        |
+|                                                | bandwidth utilization. It      |                        |
+|                                                | is estimated as a ratio of     |                        |
+|                                                | achieved_hbm_bandwidth over    |                        |
+|                                                | hbm_max_bandwidth, where       |                        |
+|                                                | achieved_hbm_bandwidth is      |                        |
+|                                                | total bytes read/written       |                        |
+|                                                | from/to HBM divided            |                        |
+|                                                | by total_time and              |                        |
+|                                                | hbm_max_bandwidth. Calculated  |                        |
+|                                                | as: (hbm_write_bytes +         |                        |
+|                                                | hbm_read_bytes) / total_time   |                        |
+|                                                | / hbm_max_bandwidth. The       |                        |
+|                                                | hbm_max_bandwidth is the       |                        |
+|                                                | maximum HBM bandwidth of a HBM |                        |
+|                                                | stack. For LNC1 and LNC2, the  |                        |
+|                                                | hbm_max_bandwidth is the same. |                        |
+| mbu_min_read_util_percent                      | Estimated minimum possible     | data_movement          |
+|                                                | Memory Bandwidth Utilization   |                        |
+|                                                | (MBU) utilization assuming     |                        |
+|                                                | inputs and weights are read    |                        |
+|                                                | from HBM a single time (no     |                        |
+|                                                | repeat loads). Calculated as:  |                        |
+|                                                | inputs_and_weights_size_bytes  |                        |
+|                                                | / total_time /                 |                        |
+|                                                | hbm_max_bandwidth.             |                        |
+| mfu_estimated_percent                          | Model FLOPs Utilization        | tensor_engine          |
+|                                                | (MFU) reflects the Tensor      |                        |
+|                                                | Engine utilization for         |                        |
+|                                                | useful compute. When HLO       |                        |
+|                                                | stats are available, this is   |                        |
+|                                                | calculated as model_flops /    |                        |
+|                                                | (tensor_engine_max_ops_per_sec |                        |
+|                                                | * total_time) where            |                        |
+|                                                | model_flops is 2 * MAC_count   |                        |
+|                                                | from HLO stats. When HLO       |                        |
+|                                                | stats are not available (e.g., |                        |
+|                                                | for NKI kernels), this is      |                        |
+|                                                | calculated as (hardware_flops  |                        |
+|                                                | - transpose_flops) /           |                        |
+|                                                | (tensor_engine_max_ops_per_sec |                        |
+|                                                | * total_time) based on the     |                        |
+|                                                | instruction trace. Note, each  |                        |
+|                                                | floating point multiply-add    |                        |
+|                                                | is counted as two FLOPs, and   |                        |
+|                                                | tensor_engine_max_ops_per_sec  |                        |
+|                                                | is 2 times the number of       |                        |
+|                                                | Tensor Engine elements times   |                        |
+|                                                | the clock speed.               |                        |
+| mfu_hlo_estimated_percent                      | MFU (HLO) is Model FLOPs       | tensor_engine          |
+|                                                | Utilization based on HLO       |                        |
+|                                                | stats. This reflects the       |                        |
+|                                                | Tensor Engine utilization      |                        |
+|                                                | for useful compute i.e. the    |                        |
+|                                                | matrix multiplications from    |                        |
+|                                                | the HLO model definition, and  |                        |
+|                                                | excludes other instructions    |                        |
+|                                                | for data movement (i.e.        |                        |
+|                                                | transposes and partition       |                        |
+|                                                | broadcasts) inserted by the    |                        |
+|                                                | compiler to resolve memory     |                        |
+|                                                | layout conflicts. Note, each   |                        |
+|                                                | floating point multiply-add    |                        |
+|                                                | is counted as two FLOPs.       |                        |
+|                                                | Calculated as model_flops /    |                        |
+|                                                | (tensor_engine_max_ops_per_sec |                        |
+|                                                | * total_time) where            |                        |
+|                                                | model_flops is 2 *             |                        |
+|                                                | MAC_count from HLO stats and   |                        |
+|                                                | tensor_engine_max_ops_per_sec  |                        |
+|                                                | is 2 times the number of       |                        |
+|                                                | Tensor Engine elements times   |                        |
+|                                                | the clock speed. Note: this    |                        |
+|                                                | will be 0 if HLO stats are     |                        |
+|                                                | missing, which is the case for |                        |
+|                                                | NKI kernels.                   |                        |
+| mfu_hlo_max_achievable_estimated_percent       | The best Tensor Engine         | tensor_engine          |
+|                                                | Utilization you can            |                        |
+|                                                | achieve for this workload      |                        |
+|                                                | based on HLO model FLOPs.      |                        |
+|                                                | Calculated as (model_flops     |                        |
+|                                                | / (hbm_write_bytes             |                        |
+|                                                | + hbm_read_bytes))             |                        |
+|                                                | / (max_ops_per_sec /           |                        |
+|                                                | max_hbm_bandwidth). If         |                        |
+|                                                | mfu_hlo_estimated_percent is   |                        |
+|                                                | much smaller than this value,  |                        |
+|                                                | then this likely indicates     |                        |
+|                                                | a major data movement          |                        |
+|                                                | inefficiency introduced        |                        |
+|                                                | by compilation or kernel       |                        |
+|                                                | implementation for NKI. If     |                        |
+|                                                | mfu_hlo_estimated_percent is   |                        |
+|                                                | close to this value and the    |                        |
+|                                                | mfu_hlo_estimated_percent      |                        |
+|                                                | value is also very high,       |                        |
+|                                                | then there's no point          |                        |
+|                                                | reducing HBM traffic. But      |                        |
+|                                                | if the values are close and    |                        |
+|                                                | mfu_hlo_estimated_percent is   |                        |
+|                                                | lower than you want, consider  |                        |
+|                                                | improving the arithmetic       |                        |
+|                                                | intensity of your workload by  |                        |
+|                                                | performing more computation on |                        |
+|                                                | every data access. Note: this  |                        |
+|                                                | will be 0 if HLO stats are     |                        |
+|                                                | missing, which is the case for |                        |
+|                                                | NKI kernels.                   |                        |
+| mfu_inst_estimated_percent                     | MFU (Instruction) is Model     | tensor_engine          |
+|                                                | FLOPs Utilization based        |                        |
+|                                                | on instruction trace. This     |                        |
+|                                                | reflects the Tensor Engine     |                        |
+|                                                | utilization for useful         |                        |
+|                                                | compute calculated from        |                        |
+|                                                | executed instructions,         |                        |
+|                                                | excluding transposes. Unlike   |                        |
+|                                                | mfu_hlo_estimated_percent      |                        |
+|                                                | which uses HLO model           |                        |
+|                                                | stats, this metric             |                        |
+|                                                | uses (hardware_flops -         |                        |
+|                                                | transpose_flops) from the      |                        |
+|                                                | actual instruction trace.      |                        |
+|                                                | Note, each floating point      |                        |
+|                                                | multiply-add is counted        |                        |
+|                                                | as two FLOPs. Calculated       |                        |
+|                                                | as (hardware_flops             |                        |
+|                                                | - transpose_flops) /           |                        |
+|                                                | (tensor_engine_max_ops_per_sec |                        |
+|                                                | * total_time) where            |                        |
+|                                                | tensor_engine_max_ops_per_sec  |                        |
+|                                                | is 2 times the number of       |                        |
+|                                                | Tensor Engine elements times   |                        |
+|                                                | the clock speed.               |                        |
+| mfu_inst_max_achievable_estimated_percent      | The best Tensor Engine         | tensor_engine          |
+|                                                | Utilization you can achieve    |                        |
+|                                                | for this workload based        |                        |
+|                                                | on instruction trace FLOPs     |                        |
+|                                                | (excluding transposes).        |                        |
+|                                                | Calculated as ((hardware_flops |                        |
+|                                                | - transpose_flops)             |                        |
+|                                                | / (hbm_write_bytes             |                        |
+|                                                | + hbm_read_bytes))             |                        |
+|                                                | / (max_ops_per_sec /           |                        |
+|                                                | max_hbm_bandwidth). If         |                        |
+|                                                | mfu_inst_estimated_percent     |                        |
+|                                                | is much smaller than this      |                        |
+|                                                | value, then this likely        |                        |
+|                                                | indicates a major data         |                        |
+|                                                | movement inefficiency. If      |                        |
+|                                                | mfu_inst_estimated_percent is  |                        |
+|                                                | close to this value and the    |                        |
+|                                                | mfu_inst_estimated_percent     |                        |
+|                                                | value is also very high,       |                        |
+|                                                | then there's no point          |                        |
+|                                                | reducing HBM traffic. But      |                        |
+|                                                | if the values are close and    |                        |
+|                                                | mfu_inst_estimated_percent is  |                        |
+|                                                | lower than you want, consider  |                        |
+|                                                | improving the arithmetic       |                        |
+|                                                | intensity of your workload by  |                        |
+|                                                | performing more computation on |                        |
+|                                                | every data access.             |                        |
+| mfu_max_achievable_estimated_percent           | The best Tensor Engine         | tensor_engine          |
+|                                                | Utilization you can achieve    |                        |
+|                                                | for this workload. When HLO    |                        |
+|                                                | stats are available, this is   |                        |
+|                                                | calculated as (model_flops     |                        |
+|                                                | / (hbm_write_bytes             |                        |
+|                                                | + hbm_read_bytes))             |                        |
+|                                                | / (max_ops_per_sec /           |                        |
+|                                                | max_hbm_bandwidth). When HLO   |                        |
+|                                                | stats are not available (e.g., |                        |
+|                                                | for NKI kernels), this is      |                        |
+|                                                | calculated as ((hardware_flops |                        |
+|                                                | - transpose_flops)             |                        |
+|                                                | / (hbm_write_bytes             |                        |
+|                                                | + hbm_read_bytes))             |                        |
+|                                                | / (max_ops_per_sec /           |                        |
+|                                                | max_hbm_bandwidth). If         |                        |
+|                                                | mfu_estimated_percent is       |                        |
+|                                                | much smaller than this value,  |                        |
+|                                                | it likely indicates a major    |                        |
+|                                                | data movement inefficiency.    |                        |
+|                                                | If mfu_estimated_percent is    |                        |
+|                                                | close to this value and also   |                        |
+|                                                | very high, then there's no     |                        |
+|                                                | point reducing HBM traffic.    |                        |
+|                                                | But if the values are close    |                        |
+|                                                | and mfu_estimated_percent is   |                        |
+|                                                | lower than desired, consider   |                        |
+|                                                | improving the arithmetic       |                        |
+|                                                | intensity of your workload by  |                        |
+|                                                | performing more computation on |                        |
+|                                                | every data access.             |                        |
+| mm_arithmetic_intensity                        | The ratio of regular           | overall_stats          |
+|                                                | MATMUL flops to total          |                        |
+|                                                | DRAM transfer size. If         |                        |
+|                                                | peak_flops_bandwidth_ratio     |                        |
+|                                                | is greater than this value,    |                        |
+|                                                | the workload is memory         |                        |
+|                                                | bound. If it is less than      |                        |
+|                                                | this value, the workload       |                        |
+|                                                | is compute bound. It is        |                        |
+|                                                | calculated as (hardware_flops  |                        |
+|                                                | - transpose_flops)             |                        |
+|                                                | / (hbm_write_bytes +           |                        |
+|                                                | hbm_read_bytes).               |                        |
+| model_flops                                    | Model FLOPs is the FLOP count  | overall_stats          |
+|                                                | of useful compute on the       |                        |
+|                                                | Tensor Engine i.e. the matrix  |                        |
+|                                                | multiplications from the HLO   |                        |
+|                                                | model definition, and excludes |                        |
+|                                                | other instructions for data    |                        |
+|                                                | movement (i.e. transposes and  |                        |
+|                                                | partition broadcasts) inserted |                        |
+|                                                | by the compiler to resolve     |                        |
+|                                                | memory layout conflicts.       |                        |
+|                                                | Note, each floating point      |                        |
+|                                                | multiply-add is counted as     |                        |
+|                                                | two FLOPs. Calculated as 2 *   |                        |
+|                                                | MAC_count from the HLO stats.  |                        |
+|                                                | Note: this will be 0 if HLO    |                        |
+|                                                | stats are missing, which is    |                        |
+|                                                | the case for NKI kernels.      |                        |
+| nc_idx                                         | The id of this NeuronCore.     | system                 |
+| nd_idx                                         | The id of this NeuronDevice.   | system                 |
+| neuroncore_cycle_count                         | Number of NeuronCore cycles    | overall_stats          |
+|                                                | over the duration of the       |                        |
+|                                                | profile i.e. the duration      |                        |
+|                                                | in seconds multiplied by the   |                        |
+|                                                | NeuronCore base clock rate     |                        |
+|                                                | The NeuronCore base clock      |                        |
+|                                                | rate for Inferentia1 is 1.0    |                        |
+|                                                | GHz, Trainium1 is 1.4 GHz, and |                        |
+|                                                | Trainium2 is 1.2 GHz.          |                        |
+| output_queue_bytes                             | Total transfer size of DMA     | data_movement          |
+|                                                | blocks in "output" queues. The |                        |
+|                                                | "output" queues are primarily  |                        |
+|                                                | for writing output data from   |                        |
+|                                                | the State Buffer to HBM.       |                        |
+| peak_flops_bandwidth_ratio                     | The ratio of theoretical       | overall_stats          |
+|                                                | max Tensor Engine FLOPS        |                        |
+|                                                | to peak DRAM bandwidth. If     |                        |
+|                                                | mm_arithmetic_intensity is     |                        |
+|                                                | less than this value, the      |                        |
+|                                                | workload is memory bound. If   |                        |
+|                                                | it is greater than this value, |                        |
+|                                                | the workload is compute bound. |                        |
+| profiler_version                               | The Neuron Profile version     | system                 |
+|                                                | which post-processed this      |                        |
+|                                                | captured profile.              |                        |
+| psum_read_bytes                                | Total bytes of data that are   | data_movement          |
+|                                                | read from PSUM by compute      |                        |
+|                                                | engine instructions.           |                        |
+| psum_read_sbuf_write_bytes                     | Total bytes of data moved from | data_movement          |
+|                                                | PSUM to SBUF by compute engine |                        |
+|                                                | instructions.                  |                        |
+| psum_read_sbuf_write_count                     | Number of compute engine       | data_movement          |
+|                                                | instructions that moved data   |                        |
+|                                                | from PSUM to SBUF.             |                        |
+| psum_write_bytes                               | Total bytes of data that are   | data_movement          |
+|                                                | written to PSUM by compute     |                        |
+|                                                | engine instructions.           |                        |
+| qgpsimdioparam*                                | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by GpSimd engine.    |                        |
+|                                                | Used for transferring weights. |                        |
+| qgpsimdpio*                                    | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by GpSimd engine.    |                        |
+|                                                | Used for transferring          |                        |
+|                                                | inputs/outputs.                |                        |
+| qgpsimdspillreload*                            | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by GpSimd engine.    |                        |
+|                                                | Used for State Buffer spilling |                        |
+|                                                | and reloading.                 |                        |
+| qscalarioparam*                                | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by Scalar engine.    |                        |
+|                                                | Used for transferring weights. |                        |
+| qscalarpio*                                    | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by Scalar engine.    |                        |
+|                                                | Used for transferring          |                        |
+|                                                | inputs/outputs.                |                        |
+| qscalarspillreload*                            | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by Scalar engine.    |                        |
+|                                                | Used for State Buffer spilling |                        |
+|                                                | and reloading.                 |                        |
+| qsyncioparam*                                  | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by Sync engine. Used |                        |
+|                                                | for transferring weights.      |                        |
+| qsyncpio0*                                     | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by Sync engine.      |                        |
+|                                                | Used for transferring          |                        |
+|                                                | inputs/outputs.                |                        |
+| qsyncspillreload*                              | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by Sync engine. Used |                        |
+|                                                | for State Buffer spilling and  |                        |
+|                                                | reloading.                     |                        |
+| qvectorioparam*                                | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by Vector engine.    |                        |
+|                                                | Used for transferring weights. |                        |
+| qvectorpio*                                    | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by Vector engine.    |                        |
+|                                                | Used for transferring          |                        |
+|                                                | inputs/outputs.                |                        |
+| qvectorspillreload*                            | DMA queue where DMAs are       | dma_queue              |
+|                                                | triggered by Vector engine.    |                        |
+|                                                | Used for State Buffer spilling |                        |
+|                                                | and reloading.                 |                        |
+| runtime_version                                | The Neuron Runtime library     | system                 |
+|                                                | version with which this        |                        |
+|                                                | profile was captured.          |                        |
+| s3_bucket_path                                 | Full S3 path where profile's   | server_upload          |
+|                                                | files (NEFF/NTFF/source/debug) |                        |
+|                                                | are stored and uploaded        |                        |
+| sbuf_read_bytes                                | Total size of all reads        | data_movement          |
+|                                                | from the State Buffer. This    |                        |
+|                                                | includes DMAs reading from and |                        |
+|                                                | instructions with input from   |                        |
+|                                                | the State Buffer.              |                        |
+| sbuf_write_bytes                               | Total size of all writes       | data_movement          |
+|                                                | to the State Buffer. This      |                        |
+|                                                | includes DMAs writing to and   |                        |
+|                                                | instructions with output to    |                        |
+|                                                | the State Buffer.              |                        |
+| scalar_engine_active_time                      | Duration of time when Scalar   | scalar_engine          |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits). Units are in |                        |
+|                                                | seconds.                       |                        |
+| scalar_engine_active_time_percent              | Percentage of time when Scalar | scalar_engine          |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits).              |                        |
+| scalar_engine_instruction_count                | Number of Scalar Engine        | scalar_engine          |
+|                                                | instructions.                  |                        |
+| scalar_engine_instruction_time                 | Total duration of all          | scalar_engine          |
+|                                                | Scalar engine instructions.    |                        |
+|                                                | Overlapping instructions on    |                        |
+|                                                | the engine are added together. |                        |
+|                                                | Units are in seconds.          |                        |
+| software_dynamic_dma_active_time               | Duration of time when at least | software_data_movement |
+|                                                | one software generated DMA     |                        |
+|                                                | packet is transfering.         |                        |
+| software_dynamic_dma_active_time_percent       | Percentage of time when at     | software_data_movement |
+|                                                | least one software generated   |                        |
+|                                                | DMA packet is transfering.     |                        |
+| software_dynamic_dma_packet_count              | Number of DMA packets that     | software_data_movement |
+|                                                | are dynamically generated      |                        |
+|                                                | during execution via software  |                        |
+|                                                | backend.                       |                        |
+| software_dynamic_dma_packet_percent            | Percentage of DMA packets      | software_data_movement |
+|                                                | that are dynamically generated |                        |
+|                                                | during execution via software  |                        |
+|                                                | backend.                       |                        |
+| software_dynamic_dma_size                      | Total transfer size of DMA     | software_data_movement |
+|                                                | packets that are dynamically   |                        |
+|                                                | generated during execution via |                        |
+|                                                | software backend.              |                        |
+| software_dynamic_dma_size_percent              | Percentage of total transfer   | software_data_movement |
+|                                                | size for DMA packets that      |                        |
+|                                                | are dynamically generated via  |                        |
+|                                                | software backend.              |                        |
+| spill_reload_bytes                             | Total bytes of spilled data    | data_movement          |
+|                                                | that was reloaded back to      |                        |
+|                                                | SBUF. Spilled data is the      |                        |
+|                                                | intermediate tensors computed  |                        |
+|                                                | by the engines that cannot fit |                        |
+|                                                | in the SBUF during execution   |                        |
+|                                                | and must be spilled into       |                        |
+|                                                | HBM. If a spilled tensor       |                        |
+|                                                | is reloaded multiple times     |                        |
+|                                                | into SBUF, this metric will    |                        |
+|                                                | include the spilled tensor     |                        |
+|                                                | size multiplied by the reload  |                        |
+|                                                | count.                         |                        |
+| spill_save_bytes                               | Total bytes of spilled data    | data_movement          |
+|                                                | that was saved to HBM. Spilled |                        |
+|                                                | data is the intermediate       |                        |
+|                                                | tensors computed by the        |                        |
+|                                                | engines that cannot fit in the |                        |
+|                                                | SBUF during execution and must |                        |
+|                                                | be spilled into HBM.           |                        |
+| static_dma_active_time                         | Duration of time when at least | data_movement          |
+|                                                | one statically generated DMA   |                        |
+|                                                | packet is transfering.         |                        |
+| static_dma_active_time_percent                 | Percentage of time when at     | data_movement          |
+|                                                | least one statically generated |                        |
+|                                                | DMA packet is transfering.     |                        |
+| static_dma_packet_count                        | Number of DMA packets that are | data_movement          |
+|                                                | statically generated.          |                        |
+| static_dma_packet_percent                      | Percentage of DMA packets that | data_movement          |
+|                                                | are statically generated.      |                        |
+| static_dma_size                                | Total transfer size of DMA     | data_movement          |
+|                                                | packets that are statically    |                        |
+|                                                | generated.                     |                        |
+| static_dma_size_percent                        | Percentage of total transfer   | data_movement          |
+|                                                | size for DMA packets that are  |                        |
+|                                                | statically generated.          |                        |
+| sync_engine_active_time                        | Duration of time when Sync     | sync_engine            |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits). Units are in |                        |
+|                                                | seconds.                       |                        |
+| sync_engine_active_time_percent                | Percentage of time when Sync   | sync_engine            |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits).              |                        |
+| sync_engine_instruction_count                  | Number of Sync Engine          | sync_engine            |
+|                                                | instructions.                  |                        |
+| sync_engine_instruction_time                   | Total duration of all          | sync_engine            |
+|                                                | Sync engine instructions.      |                        |
+|                                                | Overlapping instructions on    |                        |
+|                                                | the engine are added together. |                        |
+|                                                | Units are in seconds.          |                        |
+| tensor_engine_active_time                      | Duration of time when Tensor   | tensor_engine          |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits). Units are in |                        |
+|                                                | seconds.                       |                        |
+| tensor_engine_active_time_percent              | Percentage of time when Tensor | tensor_engine          |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits).              |                        |
+| tensor_engine_instruction_count                | Number of Tensor Engine        | tensor_engine          |
+|                                                | instructions.                  |                        |
+| tensor_engine_instruction_time                 | Total duration of all          | tensor_engine          |
+|                                                | Tensor engine instructions.    |                        |
+|                                                | Overlapping instructions on    |                        |
+|                                                | the engine are added together. |                        |
+|                                                | Units are in seconds.          |                        |
+| throttle_active_nc0_time_ns                    | Total time in nsec when        | throttling_nc0         |
+|                                                | hardware utilization was       |                        |
+|                                                | limited to less than 100% due  |                        |
+|                                                | to throttling.                 |                        |
+| throttle_active_nc1_time_ns                    | Total time in nsec when        | throttling_nc1         |
+|                                                | hardware utilization was       |                        |
+|                                                | limited to less than 100% due  |                        |
+|                                                | to throttling.                 |                        |
+| throttle_activity_0_active_time_nc0_percent    | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by activity_0  |                        |
+| throttle_activity_0_active_time_nc1_percent    | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by activity_0  |                        |
+| throttle_activity_0_avg_util_limit_nc0_percent | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by activity_0                  |                        |
+| throttle_activity_0_avg_util_limit_nc1_percent | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by activity_0                  |                        |
+| throttle_activity_1_active_time_nc0_percent    | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by activity_1  |                        |
+| throttle_activity_1_active_time_nc1_percent    | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by activity_1  |                        |
+| throttle_activity_1_avg_util_limit_nc0_percent | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by activity_1                  |                        |
+| throttle_activity_1_avg_util_limit_nc1_percent | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by activity_1                  |                        |
+| throttle_activity_2_active_time_nc0_percent    | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by activity_2  |                        |
+| throttle_activity_2_active_time_nc1_percent    | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by activity_2  |                        |
+| throttle_activity_2_avg_util_limit_nc0_percent | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by activity_2                  |                        |
+| throttle_activity_2_avg_util_limit_nc1_percent | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by activity_2                  |                        |
+| throttle_activity_3_active_time_nc0_percent    | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by activity_3  |                        |
+| throttle_activity_3_active_time_nc1_percent    | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by activity_3  |                        |
+| throttle_activity_3_avg_util_limit_nc0_percent | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by activity_3                  |                        |
+| throttle_activity_3_avg_util_limit_nc1_percent | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by activity_3                  |                        |
+| throttle_avg_util_limit_nc0_percent            | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit over the     |                        |
+|                                                | entire execution               |                        |
+| throttle_avg_util_limit_nc1_percent            | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit over the     |                        |
+|                                                | entire execution               |                        |
+| throttle_gpio_0_active_time_nc0_percent        | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by gpio_0      |                        |
+| throttle_gpio_0_active_time_nc1_percent        | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by gpio_0      |                        |
+| throttle_gpio_0_avg_util_limit_nc0_percent     | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_0                      |                        |
+| throttle_gpio_0_avg_util_limit_nc1_percent     | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_0                      |                        |
+| throttle_gpio_1_active_time_nc0_percent        | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by gpio_1      |                        |
+| throttle_gpio_1_active_time_nc1_percent        | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by gpio_1      |                        |
+| throttle_gpio_1_avg_util_limit_nc0_percent     | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_1                      |                        |
+| throttle_gpio_1_avg_util_limit_nc1_percent     | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_1                      |                        |
+| throttle_gpio_2_active_time_nc0_percent        | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by gpio_2      |                        |
+| throttle_gpio_2_active_time_nc1_percent        | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by gpio_2      |                        |
+| throttle_gpio_2_avg_util_limit_nc0_percent     | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_2                      |                        |
+| throttle_gpio_2_avg_util_limit_nc1_percent     | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_2                      |                        |
+| throttle_gpio_3_active_time_nc0_percent        | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by gpio_3      |                        |
+| throttle_gpio_3_active_time_nc1_percent        | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by gpio_3      |                        |
+| throttle_gpio_3_avg_util_limit_nc0_percent     | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_3                      |                        |
+| throttle_gpio_3_avg_util_limit_nc1_percent     | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_3                      |                        |
+| throttle_gpio_4_active_time_nc0_percent        | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by gpio_4      |                        |
+| throttle_gpio_4_active_time_nc1_percent        | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by gpio_4      |                        |
+| throttle_gpio_4_avg_util_limit_nc0_percent     | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_4                      |                        |
+| throttle_gpio_4_avg_util_limit_nc1_percent     | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_4                      |                        |
+| throttle_gpio_5_active_time_nc0_percent        | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by gpio_5      |                        |
+| throttle_gpio_5_active_time_nc1_percent        | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by gpio_5      |                        |
+| throttle_gpio_5_avg_util_limit_nc0_percent     | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_5                      |                        |
+| throttle_gpio_5_avg_util_limit_nc1_percent     | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_5                      |                        |
+| throttle_gpio_6_active_time_nc0_percent        | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by gpio_6      |                        |
+| throttle_gpio_6_active_time_nc1_percent        | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by gpio_6      |                        |
+| throttle_gpio_6_avg_util_limit_nc0_percent     | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_6                      |                        |
+| throttle_gpio_6_avg_util_limit_nc1_percent     | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_6                      |                        |
+| throttle_gpio_7_active_time_nc0_percent        | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by gpio_7      |                        |
+| throttle_gpio_7_active_time_nc1_percent        | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by gpio_7      |                        |
+| throttle_gpio_7_avg_util_limit_nc0_percent     | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_7                      |                        |
+| throttle_gpio_7_avg_util_limit_nc1_percent     | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by gpio_7                      |                        |
+| throttle_periodic_active_time_nc0_percent      | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by periodic    |                        |
+| throttle_periodic_active_time_nc1_percent      | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by periodic    |                        |
+| throttle_periodic_avg_util_limit_nc0_percent   | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by periodic                    |                        |
+| throttle_periodic_avg_util_limit_nc1_percent   | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by periodic                    |                        |
+| throttle_sw_0_active_time_nc0_percent          | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by sw_0        |                        |
+| throttle_sw_0_active_time_nc1_percent          | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by sw_0        |                        |
+| throttle_sw_0_avg_util_limit_nc0_percent       | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by sw_0                        |                        |
+| throttle_sw_0_avg_util_limit_nc1_percent       | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by sw_0                        |                        |
+| throttle_sw_1_active_time_nc0_percent          | Percent of total time spent    | throttling_nc0         |
+|                                                | being throttled by sw_1        |                        |
+| throttle_sw_1_active_time_nc1_percent          | Percent of total time spent    | throttling_nc1         |
+|                                                | being throttled by sw_1        |                        |
+| throttle_sw_1_avg_util_limit_nc0_percent       | Average of the hardware        | throttling_nc0         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by sw_1                        |                        |
+| throttle_sw_1_avg_util_limit_nc1_percent       | Average of the hardware        | throttling_nc1         |
+|                                                | utilization limit as dictated  |                        |
+|                                                | by sw_1                        |                        |
+| total_active_time                              | Total duration of time when    | summary                |
+|                                                | at least one engine, DMA,      |                        |
+|                                                | or CC operation is active.     |                        |
+|                                                | Computed as the union of all   |                        |
+|                                                | active intervals. Units are in |                        |
+|                                                | seconds.                       |                        |
+| total_active_time_percent                      | Percentage of total execution  | summary                |
+|                                                | time when at least one engine, |                        |
+|                                                | DMA, or CC operation is        |                        |
+|                                                | active.                        |                        |
+| total_time                                     | Total duration of on device    | overall_stats          |
+|                                                | time for the run. This doesn't |                        |
+|                                                | include any host<->device      |                        |
+|                                                | data movement overhead or host |                        |
+|                                                | runtime/framework overhead.    |                        |
+|                                                | Units are in seconds.          |                        |
+| trace_count                                    | Total number of trace          | overall_stats          |
+|                                                | events in the NTFF             |                        |
+|                                                | including instructions,        |                        |
+|                                                | events/semaphores, and DMAs.   |                        |
+| transpose_flops                                | 2x the number of MATMUL        | overall_stats          |
+|                                                | operations from transposes. A  |                        |
+|                                                | MATMUL operation is counted as |                        |
+|                                                | a transpose if the instruction |                        |
+|                                                | type in its debug info is      |                        |
+|                                                | "TRANSyncOSE". This is a       |                        |
+|                                                | subset of hardware_flops.      |                        |
+| ultraserver_id                                 | Unique UltraServer ID if this  | system                 |
+|                                                | profile was captured on an     |                        |
+|                                                | UltraServer instance.          |                        |
+| ultraserver_instance_index                     | The instance index within      | system                 |
+|                                                | the UltraServer on which this  |                        |
+|                                                | profile was captured.          |                        |
+| ultraserver_size                               | The total numbers of instance  | system                 |
+|                                                | in an UltraServer.             |                        |
+| ultraserver_type                               | The type of instances          | system                 |
+|                                                | connectivity within an         |                        |
+|                                                | UltraServer.                   |                        |
+| vector_engine_active_time                      | Duration of time when Vector   | vector_engine          |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits). Units are in |                        |
+|                                                | seconds.                       |                        |
+| vector_engine_active_time_percent              | Percentage of time when Vector | vector_engine          |
+|                                                | engine is processing at least  |                        |
+|                                                | one instruction (excluding     |                        |
+|                                                | semaphore waits).              |                        |
+| vector_engine_instruction_count                | Number of Vector Engine        | vector_engine          |
+|                                                | instructions.                  |                        |
+| vector_engine_instruction_time                 | Total duration of all          | vector_engine          |
+|                                                | Vector engine instructions.    |                        |
+|                                                | Overlapping instructions on    |                        |
+|                                                | the engine are added together. |                        |
+|                                                | Units are in seconds.          |                        |
+| weight_queue_bytes                             | Total transfer size of DMA     | data_movement          |
+|                                                | blocks in "data" queues. The   |                        |
+|                                                | "data" queues are primarily    |                        |
+|                                                | for loading weights from       |                        |
+|                                                | HBM to the State Buffer.       |                        |
+|                                                | This size may be larger than   |                        |
+|                                                | weight_size_bytes if weights   |                        |
+|                                                | are loaded multiple times or   |                        |
+|                                                | spilled and reloaded.          |                        |
+| weight_size_bytes                              | Total size of all weights      | data_movement          |
+|                                                | defined in the NEFF.           |                        |
++------------------------------------------------+--------------------------------+------------------------+

@@ -5,12 +5,14 @@
 | Field | Meaning |
 | --- | --- |
 | `status` | `passed`, `incorrect`, `error`, or `timeout` |
-| `correct` | All configured candidate and baseline correctness trials passed; can remain true if subsequent benchmarking fails |
+| `correct` | Initial trials and any completed warmup/timed correctness checks passed; becomes false for a benchmark mismatch, but can remain true after a later execution error |
 | `backend` | `neuron`, `simulator`, or `cpu`; always inspect before comparing performance |
 | `config` | Workload, entries, source hashes, trial/timing settings, compiler flags |
 | `cases[].trials` | Per-seed candidate and, where applicable, baseline comparisons |
 | `cases[].preparation` | Compile durations/artifact paths or simulator details |
 | `cases[].performance` | Raw latency samples and statistics; null until all cases pass correctness |
+| `cases[].performance.validation` | Benchmark protocol, fresh input policy, validation placement, checked pair counts, and seed range |
+| `cases[].benchmark_validation` | Failure details when a warmup or measured output violates the contract |
 | `performance` | Aggregate performance, null on incorrect results or when timing is disabled |
 | `native_check` | Conservative direct-import/JIT lint result, disabled for CPU debug |
 | `error` | Failure category, stage, message, and usually traceback/case |
@@ -27,9 +29,11 @@ error metrics. Nonfinite mismatches appear in the count and first-mismatch diagn
 or overflowed error metrics are JSON null; diagnostics stringify NaN/Inf and large integer values.
 Reports use standard JSON, without nonstandard `NaN` or `Infinity` literals.
 
-Performance is correctness-gated across the entire workload. On an error during benchmarking,
-completed earlier case timings may remain in the report for debugging; the overall status is
-`error` and no aggregate performance is published. Consumers should only score `status=passed`
+Performance is correctness-gated across the entire workload. Every warmup and measured output
+is checked against eager PyTorch outside the timer, and input mutation is checked for both
+candidate and baseline. Any mismatch produces `status=incorrect`; execution exceptions produce
+`status=error`. Both remove **all** earlier case and aggregate timings. Failures report the actor,
+phase, iteration, and seed where available. Consumers should only score `status=passed`
 hardware reports with the desired timing scope. CPU/simulator success is not hardware validation.
 
 Timing reports include `min`, `median`, `p90`, `p99`, `mean`, population `std`, `count`, and raw
@@ -38,9 +42,16 @@ second uses inverse mean latency and does not predict concurrent serving through
 TFLOP/s and GB/s use median candidate latency and explicit workload-supplied counts.
 
 The seed for case index `i`, trial `j` is `base_seed + i*trials + j`. Input generation uses a local
-CPU PyTorch generator. Compile examples and benchmarks use trial zero's inputs. Global random
+CPU PyTorch generator. Compile examples use trial zero's inputs. After initial trials, fresh
+benchmark seeds start at `base_seed + trials*number_of_cases`, with each case consuming
+`warmup + iterations` seeds. Candidate and baseline use equal values in separate allocations.
+Constant distributions may yield identical values across seeds. Global random
 seeds are set once per worker for reproducible initialization, not to support stochastic kernels.
 The timeout covers process startup, imports, all compilations, correctness, and timing together.
+
+The new benchmark protocol is `fresh_inputs_checked_v1`. Older reports lacking this identifier
+used repeated fixed inputs without checks during timing. The timing scope string is unchanged,
+but the surrounding protocol is different; do not combine the two in one repeated experiment.
 
 This release does not implement scalar RL rewards, distributed queues, automatic retries, or a
 strong anti-cheating verifier. Its JSON can be consumed by an external agent loop; define reward

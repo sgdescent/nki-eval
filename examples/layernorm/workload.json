@@ -1,0 +1,12 @@
+{
+  "name": "row_layernorm_no_affine_fp32_output",
+  "rtol": 0.0001,
+  "atol": 0.00001,
+  "cases": [
+    {"name": "aligned_fp32", "inputs": [{"shape": [128, 512]}, 0.00001]},
+    {"name": "constant_and_row_tail_fp32", "inputs": [
+      {"shape": [129, 513], "distribution": "ones"}, 0.00001
+    ]},
+    {"name": "small_bf16", "inputs": [{"shape": [17, 31], "dtype": "bfloat16"}, 0.0001]}
+  ]
+}

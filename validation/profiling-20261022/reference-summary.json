@@ -1,0 +1,4 @@
+{}
+neuron-profile exited with an error.neuron-profile 2.29.18.0%kaena-tools/2.29@d5fe7ba built on 2026-03-27T17:21:10Z
+
+Invalid parsed NTFF (err: open /home/ubuntu/nki-eval-runs/20261022/profiling-smoke/reference.ntff: no such file or directory)

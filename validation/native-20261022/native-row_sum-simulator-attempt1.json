@@ -1,0 +1,451 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "correct": true,
+  "backend": "simulator",
+  "config": {
+    "reference": "/home/ubuntu/nki-eval-research-20261022/examples/row_sum/reference.py:reference",
+    "candidate": "/home/ubuntu/nki-eval-research-20261022/examples/row_sum/kernel.py:kernel",
+    "spec": {
+      "name": "row_sum_fp32_accumulation",
+      "rtol": 0.0001,
+      "atol": 0.0001,
+      "cases": [
+        {
+          "name": "aligned_fp32",
+          "inputs": [
+            {
+              "shape": [
+                128,
+                512
+              ]
+            }
+          ]
+        },
+        {
+          "name": "row_and_width_tails_fp32",
+          "inputs": [
+            {
+              "shape": [
+                129,
+                513
+              ]
+            }
+          ]
+        },
+        {
+          "name": "small_bf16",
+          "inputs": [
+            {
+              "shape": [
+                17,
+                31
+              ],
+              "dtype": "bfloat16"
+            }
+          ]
+        }
+      ]
+    },
+    "backend": "simulator",
+    "trials": 5,
+    "seed": 0,
+    "warmup": 10,
+    "iterations": 100,
+    "threads": 1,
+    "compiler_args": [],
+    "correctness_only": true,
+    "source": {
+      "reference": {
+        "file": "/home/ubuntu/nki-eval-research-20261022/examples/row_sum/reference.py",
+        "symbol": "reference",
+        "sha256": "f690af3859769e5deaed2e4493c8c59608db0e5373ae3fb5766132db34784d43"
+      },
+      "candidate": {
+        "file": "/home/ubuntu/nki-eval-research-20261022/examples/row_sum/kernel.py",
+        "symbol": "kernel",
+        "sha256": "0e3fe09ab9d3ba1e99c478e55b1ce3c04e83ebed6e69253882916f0e83f0ce53"
+      }
+    }
+  },
+  "cases": [
+    {
+      "name": "aligned_fp32",
+      "passed": true,
+      "trials": [
+        {
+          "seed": 0,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 128,
+                "mismatches": 0,
+                "max_abs_error_finite": 7.62939453125e-06,
+                "max_rel_error_finite": 1.0652870743802556e-05
+              }
+            ]
+          }
+        },
+        {
+          "seed": 1,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 128,
+                "mismatches": 0,
+                "max_abs_error_finite": 7.62939453125e-06,
+                "max_rel_error_finite": 2.797447981454785e-05
+              }
+            ]
+          }
+        },
+        {
+          "seed": 2,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 128,
+                "mismatches": 0,
+                "max_abs_error_finite": 9.5367431640625e-06,
+                "max_rel_error_finite": 9.787590925190383e-06
+              }
+            ]
+          }
+        },
+        {
+          "seed": 3,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 128,
+                "mismatches": 0,
+                "max_abs_error_finite": 7.62939453125e-06,
+                "max_rel_error_finite": 4.1488983553542654e-05
+              }
+            ]
+          }
+        },
+        {
+          "seed": 4,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  128,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 128,
+                "mismatches": 0,
+                "max_abs_error_finite": 1.1444091796875e-05,
+                "max_rel_error_finite": 2.9760374872503847e-05
+              }
+            ]
+          }
+        }
+      ],
+      "performance": null,
+      "preparation": {
+        "precise_fp": true
+      }
+    },
+    {
+      "name": "row_and_width_tails_fp32",
+      "passed": true,
+      "trials": [
+        {
+          "seed": 5,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  129,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 129,
+                "mismatches": 0,
+                "max_abs_error_finite": 1.1444091796875e-05,
+                "max_rel_error_finite": 8.010723688778044e-06
+              }
+            ]
+          }
+        },
+        {
+          "seed": 6,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  129,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 129,
+                "mismatches": 0,
+                "max_abs_error_finite": 7.62939453125e-06,
+                "max_rel_error_finite": 4.885746810828769e-06
+              }
+            ]
+          }
+        },
+        {
+          "seed": 7,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  129,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 129,
+                "mismatches": 0,
+                "max_abs_error_finite": 9.5367431640625e-06,
+                "max_rel_error_finite": 1.963771874397151e-05
+              }
+            ]
+          }
+        },
+        {
+          "seed": 8,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  129,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 129,
+                "mismatches": 0,
+                "max_abs_error_finite": 1.1444091796875e-05,
+                "max_rel_error_finite": 1.4262622420842446e-05
+              }
+            ]
+          }
+        },
+        {
+          "seed": 9,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  129,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 129,
+                "mismatches": 0,
+                "max_abs_error_finite": 9.298324584960938e-06,
+                "max_rel_error_finite": 1.1898076319020741e-05
+              }
+            ]
+          }
+        }
+      ],
+      "performance": null,
+      "preparation": {
+        "precise_fp": true
+      }
+    },
+    {
+      "name": "small_bf16",
+      "passed": true,
+      "trials": [
+        {
+          "seed": 10,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 17,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 11,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 17,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 12,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 17,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 13,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 17,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 14,
+          "candidate": {
+            "passed": true,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  17,
+                  1
+                ],
+                "dtype": "torch.float32",
+                "elements": 17,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          }
+        }
+      ],
+      "performance": null,
+      "preparation": {
+        "precise_fp": true
+      }
+    }
+  ],
+  "performance": null,
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1010-aws-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "packages": {
+      "torch": "2.9.1",
+      "numpy": "2.4.4",
+      "nki": "0.3.0+23928721754.g18aa1271",
+      "nki-stdlib": null,
+      "neuronx-cc": "2.24.5133.0+58f8de22",
+      "torch-neuronx": "2.9.0.2.13.24727+8e870898"
+    },
+    "settings": {
+      "NEURON_RT_VISIBLE_CORES": "0",
+      "NEURON_PLATFORM_TARGET_OVERRIDE": "trn1",
+      "NKI_PRECISE_FP": "1",
+      "NEURON_CC_FLAGS": null,
+      "NKI_SIMULATOR": null
+    }
+  },
+  "native_check": {
+    "kind": "static_import_and_jit_lint",
+    "security_boundary": false,
+    "enabled": true,
+    "violations": []
+  },
+  "elapsed_s": 0.3365024999999946,
+  "artifacts": {
+    "directory": "/home/ubuntu/nki-eval-runs/20261022/native-simulator-attempt1/2e0749eb648d4678888efc0d1a097b0f",
+    "report": "/home/ubuntu/nki-eval-runs/20261022/native-simulator-attempt1/2e0749eb648d4678888efc0d1a097b0f/result.json",
+    "log": "/home/ubuntu/nki-eval-runs/20261022/native-simulator-attempt1/2e0749eb648d4678888efc0d1a097b0f/worker.log"
+  }
+}

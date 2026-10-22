@@ -1,0 +1,670 @@
+{
+  "backend": "neuron",
+  "all_rejected_as_expected": true,
+  "observations": [
+    {
+      "candidate": "nki_wrong_add",
+      "expected_status": "incorrect",
+      "rejected_as_expected": true,
+      "report": {
+        "schema_version": 1,
+        "status": "incorrect",
+        "correct": false,
+        "backend": "neuron",
+        "config": {
+          "reference": "/home/ubuntu/nki-eval-research-20261022/examples/add/reference.py:reference",
+          "candidate": "/home/ubuntu/nki-eval-research-20261022/tests/fixtures/nki_wrong_add.py:kernel",
+          "spec": {
+            "cases": [
+              {
+                "name": "tails",
+                "inputs": [
+                  {
+                    "shape": [
+                      129,
+                      513
+                    ]
+                  },
+                  {
+                    "shape": [
+                      129,
+                      513
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "backend": "neuron",
+          "trials": 5,
+          "seed": 911,
+          "warmup": 10,
+          "iterations": 100,
+          "threads": 1,
+          "compiler_args": [
+            "--target=trn1",
+            "--auto-cast=none"
+          ],
+          "correctness_only": false,
+          "source": {
+            "reference": {
+              "file": "/home/ubuntu/nki-eval-research-20261022/examples/add/reference.py",
+              "symbol": "reference",
+              "sha256": "5e46bc531f16f8b1b5a29f9e9138c6fd60274eb3a1b3148f0e9c56dadb85bd19"
+            },
+            "candidate": {
+              "file": "/home/ubuntu/nki-eval-research-20261022/tests/fixtures/nki_wrong_add.py",
+              "symbol": "kernel",
+              "sha256": "92f91a38c32f3788eff3768784f0dea1a9f0bee3be5161b436bc6c235b3ff90f"
+            }
+          }
+        },
+        "cases": [
+          {
+            "name": "tails",
+            "passed": false,
+            "trials": [
+              {
+                "seed": 911,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 66175,
+                      "max_abs_error_finite": 8.93580150604248,
+                      "max_rel_error_finite": 42082.03305785124,
+                      "first_mismatch": {
+                        "flat_index": 0,
+                        "expected": "1.1763758659362793",
+                        "actual": "-0.6882814764976501"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              },
+              {
+                "seed": 912,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 66175,
+                      "max_abs_error_finite": 8.988203048706055,
+                      "max_rel_error_finite": 36397.131627056675,
+                      "first_mismatch": {
+                        "flat_index": 0,
+                        "expected": "0.3929669260978699",
+                        "actual": "0.43102502822875977"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              },
+              {
+                "seed": 913,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 66176,
+                      "max_abs_error_finite": 9.59606647491455,
+                      "max_rel_error_finite": 21513.446533490012,
+                      "first_mismatch": {
+                        "flat_index": 0,
+                        "expected": "0.9428679943084717",
+                        "actual": "0.20400962233543396"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              },
+              {
+                "seed": 914,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 66177,
+                      "max_abs_error_finite": 8.68179988861084,
+                      "max_rel_error_finite": 46142.24056603773,
+                      "first_mismatch": {
+                        "flat_index": 0,
+                        "expected": "0.8930186033248901",
+                        "actual": "2.002774238586426"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              },
+              {
+                "seed": 915,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 66174,
+                      "max_abs_error_finite": 7.860724210739136,
+                      "max_rel_error_finite": 97252.00552486187,
+                      "first_mismatch": {
+                        "flat_index": 0,
+                        "expected": "-3.4143247604370117",
+                        "actual": "-2.6666364669799805"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              }
+            ],
+            "performance": null,
+            "preparation": {
+              "candidate_compile_s": 1.4048242169999412,
+              "candidate_artifacts": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/ed90ba1a561b418085f1acabcea5e861/case_0/candidate",
+              "reference_compile_s": 1.3089121080000723,
+              "reference_artifacts": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/ed90ba1a561b418085f1acabcea5e861/case_0/reference"
+            }
+          }
+        ],
+        "performance": null,
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Linux-6.17.0-1010-aws-x86_64-with-glibc2.39",
+          "machine": "x86_64",
+          "packages": {
+            "torch": "2.9.1",
+            "numpy": "2.4.4",
+            "nki": "0.3.0+23928721754.g18aa1271",
+            "nki-stdlib": null,
+            "neuronx-cc": "2.24.5133.0+58f8de22",
+            "torch-neuronx": "2.9.0.2.13.24727+8e870898"
+          },
+          "settings": {
+            "NEURON_RT_VISIBLE_CORES": "0",
+            "NEURON_PLATFORM_TARGET_OVERRIDE": "trn1",
+            "NKI_PRECISE_FP": null,
+            "NEURON_CC_FLAGS": null,
+            "NKI_SIMULATOR": null
+          }
+        },
+        "native_check": {
+          "kind": "static_import_and_jit_lint",
+          "security_boundary": false,
+          "enabled": true,
+          "violations": []
+        },
+        "error": {
+          "category": "correctness_error",
+          "stage": "comparison",
+          "message": "At least one candidate or baseline trial failed"
+        },
+        "elapsed_s": 11.71073336500001,
+        "artifacts": {
+          "directory": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/ed90ba1a561b418085f1acabcea5e861",
+          "report": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/ed90ba1a561b418085f1acabcea5e861/result.json",
+          "log": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/ed90ba1a561b418085f1acabcea5e861/worker.log"
+        }
+      }
+    },
+    {
+      "candidate": "nki_wrong_tail",
+      "expected_status": "incorrect",
+      "rejected_as_expected": true,
+      "report": {
+        "schema_version": 1,
+        "status": "incorrect",
+        "correct": false,
+        "backend": "neuron",
+        "config": {
+          "reference": "/home/ubuntu/nki-eval-research-20261022/examples/add/reference.py:reference",
+          "candidate": "/home/ubuntu/nki-eval-research-20261022/tests/fixtures/nki_wrong_tail.py:kernel",
+          "spec": {
+            "cases": [
+              {
+                "name": "tails",
+                "inputs": [
+                  {
+                    "shape": [
+                      129,
+                      513
+                    ]
+                  },
+                  {
+                    "shape": [
+                      129,
+                      513
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "backend": "neuron",
+          "trials": 5,
+          "seed": 911,
+          "warmup": 10,
+          "iterations": 100,
+          "threads": 1,
+          "compiler_args": [
+            "--target=trn1",
+            "--auto-cast=none"
+          ],
+          "correctness_only": false,
+          "source": {
+            "reference": {
+              "file": "/home/ubuntu/nki-eval-research-20261022/examples/add/reference.py",
+              "symbol": "reference",
+              "sha256": "5e46bc531f16f8b1b5a29f9e9138c6fd60274eb3a1b3148f0e9c56dadb85bd19"
+            },
+            "candidate": {
+              "file": "/home/ubuntu/nki-eval-research-20261022/tests/fixtures/nki_wrong_tail.py",
+              "symbol": "kernel",
+              "sha256": "1032e5173c9cf0edef253eb758def7666adc414284af91f2d43abd05eb3daff0"
+            }
+          }
+        },
+        "cases": [
+          {
+            "name": "tails",
+            "passed": false,
+            "trials": [
+              {
+                "seed": 911,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 641,
+                      "max_abs_error_finite": 3.729559898376465,
+                      "max_rel_error_finite": 1.0,
+                      "first_mismatch": {
+                        "flat_index": 512,
+                        "expected": "-2.624502182006836",
+                        "actual": "-0.0"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              },
+              {
+                "seed": 912,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 641,
+                      "max_abs_error_finite": 4.921807765960693,
+                      "max_rel_error_finite": 1.0,
+                      "first_mismatch": {
+                        "flat_index": 512,
+                        "expected": "-1.4798192977905273",
+                        "actual": "-0.0"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              },
+              {
+                "seed": 913,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 641,
+                      "max_abs_error_finite": 4.53126335144043,
+                      "max_rel_error_finite": 1.0,
+                      "first_mismatch": {
+                        "flat_index": 512,
+                        "expected": "0.4486936926841736",
+                        "actual": "0.0"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              },
+              {
+                "seed": 914,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 641,
+                      "max_abs_error_finite": 4.515041351318359,
+                      "max_rel_error_finite": 1.0,
+                      "first_mismatch": {
+                        "flat_index": 512,
+                        "expected": "-2.102057695388794",
+                        "actual": "-0.0"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              },
+              {
+                "seed": 915,
+                "candidate": {
+                  "passed": false,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 640,
+                      "max_abs_error_finite": 4.277125358581543,
+                      "max_rel_error_finite": 1.0,
+                      "first_mismatch": {
+                        "flat_index": 512,
+                        "expected": "1.1238285303115845",
+                        "actual": "0.0"
+                      }
+                    }
+                  ]
+                },
+                "baseline": {
+                  "passed": true,
+                  "problems": [],
+                  "tensors": [
+                    {
+                      "path": "output",
+                      "shape": [
+                        129,
+                        513
+                      ],
+                      "dtype": "torch.float32",
+                      "elements": 66177,
+                      "mismatches": 0,
+                      "max_abs_error_finite": 0.0,
+                      "max_rel_error_finite": 0.0
+                    }
+                  ]
+                }
+              }
+            ],
+            "performance": null,
+            "preparation": {
+              "candidate_compile_s": 1.4365860740000471,
+              "candidate_artifacts": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/d8c36eec009945c4b724a4902cd684d7/case_0/candidate",
+              "reference_compile_s": 1.2885016290000522,
+              "reference_artifacts": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/d8c36eec009945c4b724a4902cd684d7/case_0/reference"
+            }
+          }
+        ],
+        "performance": null,
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Linux-6.17.0-1010-aws-x86_64-with-glibc2.39",
+          "machine": "x86_64",
+          "packages": {
+            "torch": "2.9.1",
+            "numpy": "2.4.4",
+            "nki": "0.3.0+23928721754.g18aa1271",
+            "nki-stdlib": null,
+            "neuronx-cc": "2.24.5133.0+58f8de22",
+            "torch-neuronx": "2.9.0.2.13.24727+8e870898"
+          },
+          "settings": {
+            "NEURON_RT_VISIBLE_CORES": "0",
+            "NEURON_PLATFORM_TARGET_OVERRIDE": "trn1",
+            "NKI_PRECISE_FP": null,
+            "NEURON_CC_FLAGS": null,
+            "NKI_SIMULATOR": null
+          }
+        },
+        "native_check": {
+          "kind": "static_import_and_jit_lint",
+          "security_boundary": false,
+          "enabled": true,
+          "violations": []
+        },
+        "error": {
+          "category": "correctness_error",
+          "stage": "comparison",
+          "message": "At least one candidate or baseline trial failed"
+        },
+        "elapsed_s": 10.693166854999959,
+        "artifacts": {
+          "directory": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/d8c36eec009945c4b724a4902cd684d7",
+          "report": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/d8c36eec009945c4b724a4902cd684d7/result.json",
+          "log": "/home/ubuntu/nki-eval-runs/20261022/negative-hardware/runs/d8c36eec009945c4b724a4902cd684d7/worker.log"
+        }
+      }
+    }
+  ]
+}

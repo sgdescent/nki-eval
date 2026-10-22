@@ -15,9 +15,11 @@ training system, or adversarial anti-cheating protections.
 - Multiple shapes, dtypes, input distributions, and reproducible random trials.
 - Exact output structure, shape, and dtype; configurable floating-point tolerances; exact integers.
 - Maximum absolute/relative error over finite pairs, mismatch counts, and first failing element.
-- Input mutation detection for functional kernels. A failure in **any** case blocks all timing.
+- Input mutation detection for functional kernels. A failure in **any** case withholds all performance results.
 - Candidate **and** compiled PyTorch baseline checked against the eager CPU reference.
 - Warmup, alternating measurement order, median/p90/p99/mean/std latency, raw samples, and speedup.
+- Fresh inputs and oracle checks for every warmup and timed pair, outside the timed interval.
+- Serial repeated suites with source fingerprints and no aggregate score for failed suites.
 - Optional effective TFLOP/s and GB/s from user-supplied work/traffic estimates.
 - Separate worker processes, whole-evaluation timeout, compiler logs, source hashes, SDK metadata.
 - Conservative NKI import/JIT checks that catch obvious PyTorch/NumPy fallbacks.
@@ -30,10 +32,22 @@ training system, or adversarial anti-cheating protections.
 | `simulator` | Actual NKI CPU simulator versus eager PyTorch | None; simulator time is not accelerator time |
 | `cpu` | Ordinary Python/PyTorch callables | Explicitly labeled CPU debug timings; no NKI validation |
 
-**Validation status:** CPU harness and mocked SDK adapter tests run in CI. Real NKI simulator
-and Trainium tests are opt-in; a passing CPU test suite does not establish SDK or hardware
-compatibility. The initial implementation targets the NKI 0.3+ / Neuron 2.29+ API family and
-Trainium2/3. Hardware integration still needs validation on your selected SDK and instance.
+**Validation status:** The initial addition and fused-add/ReLU examples passed real simulator
+and Trainium1 validation on 21 October 2026: six cases at commit `0ebffec7`, using NKI 0.3 and
+the Neuron PyTorch 2.9 environment. See [recorded measurements](validation/trainium-20261021.json).
+CPU and adapter tests run in CI; real SDK tests remain opt-in. New examples and evaluator
+changes require their own validation; a CPU test pass never establishes hardware compatibility.
+Trainium2 and Trainium3 have not been validated by these runs.
+
+The [latest PI update](docs/pi-update-20261022.md), [research plan](docs/research-plan.md),
+[literature survey](docs/literature-survey.md), and
+[reliability experiment](docs/reliability-results.md) describe the research direction and evidence.
+
+On 22 October the revised evaluator passed all **18 cases across six families**, repeated three
+times on Trainium1. Two deliberately wrong native kernels were rejected in both simulator and
+hardware checks. The [full repeated results](validation/repeated-suite/suite.md) retain all runs.
+The host-request geometric mean is **0.984×** versus compiled PyTorch: validation evidence, not
+a substantial speedup claim.
 
 ## Quick start without AWS
 
@@ -68,7 +82,7 @@ nki-eval --backend neuron \
   --reference examples/add/reference.py:reference \
   --candidate examples/add/kernel.py:kernel \
   --spec examples/add/workload.json \
-  --compiler-arg=--target=trn2 \
+  --compiler-arg=--target=trn1 --compiler-arg=--auto-cast=none \
   --trials 5 --warmup 20 --iterations 200 --timeout 1200 \
   --json runs/add-trainium.json
 ```
@@ -76,7 +90,7 @@ nki-eval --backend neuron \
 For simulator-only validation in an environment with NKI installed:
 
 ```bash
-NEURON_PLATFORM_TARGET_OVERRIDE=trn2 nki-eval --backend simulator \
+NEURON_PLATFORM_TARGET_OVERRIDE=trn1 nki-eval --backend simulator \
   --reference examples/add/reference.py:reference \
   --candidate examples/add/kernel.py:kernel \
   --spec examples/add/workload.json
@@ -144,6 +158,13 @@ Random trials are reproducible examples, **not a proof** for all inputs. Add exp
 zero, extreme-range, and shape cases relevant to your workload. The add example includes tails,
 BF16, and zeros; `examples/fused_relu` demonstrates an operation fusion.
 
+The catalog also includes row sum, stable softmax, LayerNorm without affine weights, and tiled
+matrix multiplication. Read each example's README for supported shapes, output precision, and
+layout constraints. In particular, matmul expects a contiguous pretransposed left operand;
+layout preparation is outside that operator's measured contract.
+
+For repeated experiments and PI-ready result tables, see [suite instructions](docs/benchmarking.md).
+
 ## Python API and agent loops
 
 ```python
@@ -155,7 +176,7 @@ result = evaluate(
     spec="workload.json",
     backend="neuron",
     trials=10,
-    compiler_args=["--target=trn2"],
+    compiler_args=["--target=trn1", "--auto-cast=none"],
     timeout=1200,
 )
 if result["status"] == "passed":
@@ -183,10 +204,16 @@ it excludes compilation, input generation, and input cloning. The baseline is co
 on Neuron, not CPU PyTorch. Small kernels can be dominated by overhead. Speedup is the ratio of
 median baseline/candidate latency; the cross-case summary is their unweighted geometric mean.
 
+The `fresh_inputs_checked_v1` protocol checks every warmup and measured output against eager
+PyTorch and checks both implementations for input mutation. Those checks are outside the timer
+but affect surrounding cache/workload state. Any failure removes all partial performance.
+Do not pool these measurements with the original fixed-input, unchecked benchmark protocol.
+
 Compilation durations are reported separately and may reflect warm compiler caches. Estimated
 TFLOP/s and GB/s use supplied operation/byte counts and are not measured hardware utilization.
-For device timelines, DMA traffic, or engine bottlenecks, use the retained NEFF with
-[Neuron Explorer](docs/trainium.md#device-profiling). No invented device counters are reported.
+The [completed Trn1 profiling check](docs/profiling-results.md) records actual device captures
+and their limits. For device timelines and further analysis, use the retained NEFF with a
+[compatible profiler](docs/trainium.md#device-profiling). No invented device counters are reported.
 
 ## Trust boundary
 

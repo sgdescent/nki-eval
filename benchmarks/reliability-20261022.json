@@ -1,0 +1,939 @@
+{
+  "schema_version": 1,
+  "started_at_utc": "2026-10-22T22:10:31.372544+00:00",
+  "completed_at_utc": "2026-10-22T22:11:15.206498+00:00",
+  "experiment": "reviewed_cpu_failure_injection_matrix",
+  "settings": {
+    "backend": "cpu",
+    "trials": 2,
+    "warmup": 2,
+    "iterations": 4,
+    "seed": 0,
+    "threads": 1,
+    "timeout_seconds": 8
+  },
+  "workload": {
+    "cases": [
+      {
+        "name": "random",
+        "inputs": [
+          {
+            "shape": [
+              2,
+              3
+            ]
+          },
+          {
+            "shape": [
+              2,
+              3
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "python": "3.11.12",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "environment": {
+    "captured_by": "matrix_driver",
+    "python": "3.11.12",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "packages": {
+      "torch": "2.14.0",
+      "numpy": "2.4.6",
+      "nki": null,
+      "nki-stdlib": null,
+      "neuronx-cc": null,
+      "torch-neuronx": null
+    }
+  },
+  "script_sha256": "1328ebf5048fd1acc5becd3658141f84b164758835c0a10c4c33a9ee1e84b02c",
+  "reference_sha256": "5395bed5eecb10adc5710ac41a21a56b13a8c93b13e67e0c5c0b0d8d73268f6d",
+  "cases": [
+    {
+      "id": "correct_add",
+      "expected_status": "passed",
+      "kind": "control",
+      "source_sha256": "ab72928f03f1e5a5bdb318ab424936c2d1d3ae51da784dd4323d8e7805219566",
+      "counterexample": null
+    },
+    {
+      "id": "correct_commuted_add",
+      "expected_status": "passed",
+      "kind": "control",
+      "source_sha256": "3f630c1a130a73c202f45d8487ba86affadcb58501c0c606a9cc334deaea069c",
+      "counterexample": null
+    },
+    {
+      "id": "always_subtract",
+      "expected_status": "incorrect",
+      "kind": "numerical",
+      "source_sha256": "63b5eaeb7b825efcdd7c0cf45a4a3089a27fc3a149334d4710772a8caef8c0ea",
+      "counterexample": "At a=1, b=2, expected 3 but returns -1."
+    },
+    {
+      "id": "always_wrong_dtype",
+      "expected_status": "incorrect",
+      "kind": "dtype",
+      "source_sha256": "1feb6f9be3661ad3768ad1da4896d7a4403d9f3432ff62e3ed43a81847f84ab9",
+      "counterexample": "Float32 inputs require float32 output; returns float64."
+    },
+    {
+      "id": "tail_corruption",
+      "expected_status": "incorrect",
+      "kind": "numerical",
+      "source_sha256": "bb760786c712742f6fac2ed5e3c874276b1f6707781a4f3a66b566d2dfcd0e36",
+      "counterexample": "At a=1, b=2, expected last column 3 but returns 0."
+    },
+    {
+      "id": "warmup_wrong_output",
+      "expected_status": "incorrect",
+      "kind": "numerical",
+      "source_sha256": "fcf41da6d376c2676dd79d05b5a16542358f13f60683a355b053f7f3d52d5f57",
+      "counterexample": "From invocation 3: at a=1, b=2, expected 3 but returns -1."
+    },
+    {
+      "id": "timed_wrong_output",
+      "expected_status": "incorrect",
+      "kind": "numerical",
+      "source_sha256": "25e99d0d277e916537a980b4bc443123e859f67abd526091c1aef7153c577bb2",
+      "counterexample": "From invocation 5: at a=1, b=2, expected 3 but returns -1."
+    },
+    {
+      "id": "last_timed_wrong_output",
+      "expected_status": "incorrect",
+      "kind": "numerical",
+      "source_sha256": "0b435c1b4331daaa4b07863e577114ce61b2a61bc5cff4d33d1a508f2681457d",
+      "counterexample": "Invocation 8: at a=1, b=2, expected 3 but returns -1."
+    },
+    {
+      "id": "warmup_stale_cache",
+      "expected_status": "incorrect",
+      "kind": "stale_output",
+      "source_sha256": "de6abcb12f7099525182a323fa6eacfe6eb26cd8a5084da976753d42886ad7be",
+      "counterexample": "After caching a=1,b=2 output 3, new a=4,b=5 needs 9 but returns 3."
+    },
+    {
+      "id": "timed_stale_cache",
+      "expected_status": "incorrect",
+      "kind": "stale_output",
+      "source_sha256": "4851bb81be73bab52c4b70884dfdbf200dd8f199a869746def8fb1c634b4d96a",
+      "counterexample": "After caching a=1,b=2 output 3, new a=4,b=5 needs 9 but returns 3."
+    },
+    {
+      "id": "timed_mutation",
+      "expected_status": "incorrect",
+      "kind": "input_mutation",
+      "source_sha256": "fe16c8c226798e99e4e625be35069f06d17a6b2f67537f505266c4976aa4d569",
+      "counterexample": "From invocation 5: a=1,b=2 yields correct output 3 but changes input a to 3."
+    },
+    {
+      "id": "timed_wrong_dtype",
+      "expected_status": "incorrect",
+      "kind": "dtype",
+      "source_sha256": "981876ba80abc96bc84e14287f90710b718e13331b6ac743b640ee51fb5192c6",
+      "counterexample": "From invocation 5: float32 output contract is violated by float64 output."
+    },
+    {
+      "id": "timed_nan",
+      "expected_status": "incorrect",
+      "kind": "numerical",
+      "source_sha256": "0a59a84e82e8f45afcd6947a38a0143c08a8a94e4c90636ef02d5da9e4eab8e9",
+      "counterexample": "From invocation 5: at a=1,b=2, expected finite 3 but returns NaN."
+    },
+    {
+      "id": "warmup_exception",
+      "expected_status": "error",
+      "kind": "execution_error",
+      "source_sha256": "420415e15ba3e68019b9b99e9bbb8fd9d408c9063479649bd0f83ec23151362d",
+      "counterexample": "Invocation 3 raises instead of returning an output."
+    },
+    {
+      "id": "timed_exception",
+      "expected_status": "error",
+      "kind": "execution_error",
+      "source_sha256": "d3ea02cb875e153ed28164594eae67e6b6ada94e735b0a8019f41c9fe87f82e3",
+      "counterexample": "Invocation 5 raises instead of returning an output."
+    },
+    {
+      "id": "timed_timeout",
+      "expected_status": "timeout",
+      "kind": "execution_timeout",
+      "source_sha256": "7f949137aed59ee5b388aac65c3004b1133d2f39da2acc821a87a7e20bc00113",
+      "counterexample": "Invocation 5 sleeps for 60 seconds, beyond the configured evaluation deadline."
+    }
+  ],
+  "versions": {
+    "baseline": {
+      "git_commit": "0ebffec7e76fe1e0df52dc94c7053a294b8f285d",
+      "source": {
+        "sha256": "a750a55b04cf0c0fdd1b66cfd9fec45672c67bd001f3d0abfed250a8226fcdfb",
+        "files": {
+          "src/nki_eval/__init__.py": "69d0479d54d7bca4b8917646b8d07d39d0407fe3b02fb35e2c7d8bb13ccfedf5",
+          "src/nki_eval/backends.py": "e2fb939d13d1cb7b5f457c049affb8e7a4bf489769eb3966ab75a6fb132382af",
+          "src/nki_eval/cli.py": "0f3bf3647aef5894406059dd0fafa668b689c109cd3c20b92c546da5c4811fd2",
+          "src/nki_eval/compare.py": "36ac2e6710cac4dc73c03e35dd18f56d6b79b7a482ae4034ebf1e0499ef17fe6",
+          "src/nki_eval/loading.py": "3de0c3087a9e0edf6539d9f56de3c3a427a8fdf71c82fc581ab8d4d8e28485ee",
+          "src/nki_eval/metrics.py": "f6ac73d75b67820fe41a735248c0bd2c910d95d00e9a48f91d0944c93f1afeaf",
+          "src/nki_eval/runner.py": "cc3d11b336ebba2d0efa8b8a3178443480c7265cdb23fede7f11473b664d95e0",
+          "src/nki_eval/spec.py": "c2509e1e9fdbe7225829ef2725bb15eb391d339b981fd82a02f10377d191f681",
+          "src/nki_eval/worker.py": "649d13e9097f2fb6e7cc62ba66677d875f6e80565f33be6b2f5838fd73f95dbe"
+        }
+      },
+      "summary": {
+        "controls_passed": 2,
+        "controls_total": 2,
+        "functional_mutants_rejected": 3,
+        "functional_mutants_total": 11,
+        "execution_failures_reported": 3,
+        "execution_failures_total": 3,
+        "false_acceptances": 8
+      },
+      "observations": {
+        "correct_add": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/correct_add/270b7b1253314238b845f295b55adb74/result.json",
+          "expected_status_matched": true
+        },
+        "correct_commuted_add": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/correct_commuted_add/1306adbe7eb04c94a3e0fab6350011ee/result.json",
+          "expected_status_matched": true
+        },
+        "always_subtract": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "comparison",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 6,
+                "max_abs_error_finite": 1.6760526299476624,
+                "max_rel_error_finite": 4.8864145646885735,
+                "first_mismatch": {
+                  "flat_index": 0,
+                  "expected": "1.944342851638794",
+                  "actual": "1.1376492977142334"
+                }
+              }
+            ]
+          },
+          "report": "baseline/always_subtract/71d6131ff5ae4917814df5fb2f3adc1c/result.json",
+          "expected_status_matched": true
+        },
+        "always_wrong_dtype": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "comparison",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": {
+            "passed": false,
+            "problems": [
+              "output: expected [2, 3] torch.float32, got [2, 3] torch.float64"
+            ],
+            "tensors": []
+          },
+          "report": "baseline/always_wrong_dtype/52523ae575be4e3ba1e1cea2964de3b2/result.json",
+          "expected_status_matched": true
+        },
+        "tail_corruption": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "comparison",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 2,
+                "max_abs_error_finite": 2.8980469703674316,
+                "max_rel_error_finite": 1.0,
+                "first_mismatch": {
+                  "flat_index": 2,
+                  "expected": "-2.8980469703674316",
+                  "actual": "0.0"
+                }
+              }
+            ]
+          },
+          "report": "baseline/tail_corruption/52a0df5532504d8a9f6887d86cb6ff86/result.json",
+          "expected_status_matched": true
+        },
+        "warmup_wrong_output": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/warmup_wrong_output/78c8072ea7564e55b793e4972fbf1b90/result.json",
+          "expected_status_matched": false
+        },
+        "timed_wrong_output": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/timed_wrong_output/5fe4dae8a00f4ba5b4570ceb6bd7ce75/result.json",
+          "expected_status_matched": false
+        },
+        "last_timed_wrong_output": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/last_timed_wrong_output/55809ccb7bde41b8b92ec38e16a16d5a/result.json",
+          "expected_status_matched": false
+        },
+        "warmup_stale_cache": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/warmup_stale_cache/7fd60736416044c2a680e1ff8ae371bd/result.json",
+          "expected_status_matched": false
+        },
+        "timed_stale_cache": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/timed_stale_cache/c1ab974a932646ac9286c986acb9d68f/result.json",
+          "expected_status_matched": false
+        },
+        "timed_mutation": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/timed_mutation/9b2c6c51f7e844d5ac1dcb19ccb55586/result.json",
+          "expected_status_matched": false
+        },
+        "timed_wrong_dtype": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/timed_wrong_dtype/08934e1e065945568a9bdc670e91da71/result.json",
+          "expected_status_matched": false
+        },
+        "timed_nan": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/timed_nan/bbd5440a78e64a2eb517eb6de3ed649a/result.json",
+          "expected_status_matched": false
+        },
+        "warmup_exception": {
+          "status": "error",
+          "correct": true,
+          "performance_published": false,
+          "error_category": "runtime_error",
+          "stage": "benchmark",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/warmup_exception/d1a12006e2ca4b9a8c2308ee622f4902/result.json",
+          "expected_status_matched": true
+        },
+        "timed_exception": {
+          "status": "error",
+          "correct": true,
+          "performance_published": false,
+          "error_category": "runtime_error",
+          "stage": "benchmark",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/timed_exception/ff803a0ec7e54a73b191caaba1be63d5/result.json",
+          "expected_status_matched": true
+        },
+        "timed_timeout": {
+          "status": "timeout",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "timeout",
+          "stage": "benchmark",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "baseline/timed_timeout/b26625425a8f46349ed3a8344a7c8a02/result.json",
+          "expected_status_matched": true
+        }
+      }
+    },
+    "hardened": {
+      "git_commit": null,
+      "source": {
+        "sha256": "d1ba66658e9220c63d22557847fd7f5eda52449018085f6026f6e4b2a4fb6c0a",
+        "files": {
+          "src/nki_eval/__init__.py": "69d0479d54d7bca4b8917646b8d07d39d0407fe3b02fb35e2c7d8bb13ccfedf5",
+          "src/nki_eval/backends.py": "e2fb939d13d1cb7b5f457c049affb8e7a4bf489769eb3966ab75a6fb132382af",
+          "src/nki_eval/cli.py": "0f3bf3647aef5894406059dd0fafa668b689c109cd3c20b92c546da5c4811fd2",
+          "src/nki_eval/compare.py": "36ac2e6710cac4dc73c03e35dd18f56d6b79b7a482ae4034ebf1e0499ef17fe6",
+          "src/nki_eval/loading.py": "3de0c3087a9e0edf6539d9f56de3c3a427a8fdf71c82fc581ab8d4d8e28485ee",
+          "src/nki_eval/metrics.py": "6685e1efb7c56fdf80b8e7bce89b820d6469914ac11cf629b183d107594fefed",
+          "src/nki_eval/runner.py": "cc3d11b336ebba2d0efa8b8a3178443480c7265cdb23fede7f11473b664d95e0",
+          "src/nki_eval/spec.py": "c2509e1e9fdbe7225829ef2725bb15eb391d339b981fd82a02f10377d191f681",
+          "src/nki_eval/suite.py": "7d8610e53ca1907a847600e078c4f2da61918fb293ed9c56dec182272ac99f3e",
+          "src/nki_eval/worker.py": "565da58367de5497db199a6cd999937ee38832a432b76951e4d9b9d38fd28791"
+        }
+      },
+      "summary": {
+        "controls_passed": 2,
+        "controls_total": 2,
+        "functional_mutants_rejected": 11,
+        "functional_mutants_total": 11,
+        "execution_failures_reported": 3,
+        "execution_failures_total": 3,
+        "false_acceptances": 0
+      },
+      "observations": {
+        "correct_add": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "hardened/correct_add/53a350523da34adeb11e0323d00ff0b1/result.json",
+          "expected_status_matched": true
+        },
+        "correct_commuted_add": {
+          "status": "passed",
+          "correct": true,
+          "performance_published": true,
+          "error_category": null,
+          "stage": null,
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "hardened/correct_commuted_add/130d4f4bb5af4d18a729d0223dd65f87/result.json",
+          "expected_status_matched": true
+        },
+        "always_subtract": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "comparison",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 6,
+                "max_abs_error_finite": 1.6760526299476624,
+                "max_rel_error_finite": 4.8864145646885735,
+                "first_mismatch": {
+                  "flat_index": 0,
+                  "expected": "1.944342851638794",
+                  "actual": "1.1376492977142334"
+                }
+              }
+            ]
+          },
+          "report": "hardened/always_subtract/e2c43afadc8c41cba4a2247df3ce3355/result.json",
+          "expected_status_matched": true
+        },
+        "always_wrong_dtype": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "comparison",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": {
+            "passed": false,
+            "problems": [
+              "output: expected [2, 3] torch.float32, got [2, 3] torch.float64"
+            ],
+            "tensors": []
+          },
+          "report": "hardened/always_wrong_dtype/9017a6fe052a45e2850d24cc6fff2b63/result.json",
+          "expected_status_matched": true
+        },
+        "tail_corruption": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "comparison",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 2,
+                "max_abs_error_finite": 2.8980469703674316,
+                "max_rel_error_finite": 1.0,
+                "first_mismatch": {
+                  "flat_index": 2,
+                  "expected": "-2.8980469703674316",
+                  "actual": "0.0"
+                }
+              }
+            ]
+          },
+          "report": "hardened/tail_corruption/a858e1cde17f48f7926d8e11ac4e1e7f/result.json",
+          "expected_status_matched": true
+        },
+        "warmup_wrong_output": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "benchmark_validation",
+          "phase": "warmup",
+          "actor": "candidate",
+          "iteration": 0,
+          "seed": 2,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 6,
+                "max_abs_error_finite": 2.6372348070144653,
+                "max_rel_error_finite": 13.069322110983936,
+                "first_mismatch": {
+                  "flat_index": 0,
+                  "expected": "0.9654035568237305",
+                  "actual": "-0.18080994486808777"
+                }
+              }
+            ]
+          },
+          "report": "hardened/warmup_wrong_output/b0d507858ce048c3b6c14f2ca5a9bc0b/result.json",
+          "expected_status_matched": true
+        },
+        "timed_wrong_output": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "benchmark_validation",
+          "phase": "timed",
+          "actor": "candidate",
+          "iteration": 0,
+          "seed": 4,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 6,
+                "max_abs_error_finite": 3.541285991668701,
+                "max_rel_error_finite": 2.5865932849226043,
+                "first_mismatch": {
+                  "flat_index": 0,
+                  "expected": "-3.0312960147857666",
+                  "actual": "-0.17925667762756348"
+                }
+              }
+            ]
+          },
+          "report": "hardened/timed_wrong_output/0eb74a18983447c4b404d94f6e9c4719/result.json",
+          "expected_status_matched": true
+        },
+        "last_timed_wrong_output": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "benchmark_validation",
+          "phase": "timed",
+          "actor": "candidate",
+          "iteration": 3,
+          "seed": 7,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 6,
+                "max_abs_error_finite": 3.364397168159485,
+                "max_rel_error_finite": 1.415648036334599,
+                "first_mismatch": {
+                  "flat_index": 0,
+                  "expected": "-0.5024201273918152",
+                  "actual": "0.20882993936538696"
+                }
+              }
+            ]
+          },
+          "report": "hardened/last_timed_wrong_output/0263d67fc243456bb3fd10505dbbd5f9/result.json",
+          "expected_status_matched": true
+        },
+        "warmup_stale_cache": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "benchmark_validation",
+          "phase": "warmup",
+          "actor": "candidate",
+          "iteration": 0,
+          "seed": 2,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 6,
+                "max_abs_error_finite": 3.707277536392212,
+                "max_rel_error_finite": 2.961173543359922,
+                "first_mismatch": {
+                  "flat_index": 0,
+                  "expected": "0.9654035568237305",
+                  "actual": "-0.8614163398742676"
+                }
+              }
+            ]
+          },
+          "report": "hardened/warmup_stale_cache/2de5e862459f40908e982b39a33e4be0/result.json",
+          "expected_status_matched": true
+        },
+        "timed_stale_cache": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "benchmark_validation",
+          "phase": "timed",
+          "actor": "candidate",
+          "iteration": 0,
+          "seed": 4,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 6,
+                "max_abs_error_finite": 4.441786885261536,
+                "max_rel_error_finite": 1.434877752145034,
+                "first_mismatch": {
+                  "flat_index": 0,
+                  "expected": "-3.0312960147857666",
+                  "actual": "1.1407711505889893"
+                }
+              }
+            ]
+          },
+          "report": "hardened/timed_stale_cache/27701f940d954622927c5cf8fe503c6d/result.json",
+          "expected_status_matched": true
+        },
+        "timed_mutation": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "benchmark_validation",
+          "phase": "timed",
+          "actor": "candidate",
+          "iteration": 0,
+          "seed": 4,
+          "check": {
+            "passed": false,
+            "problems": [
+              "Input 0 was mutated"
+            ],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 0,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0
+              }
+            ]
+          },
+          "report": "hardened/timed_mutation/38cdff5c26d242b78c41f5580ebafff3/result.json",
+          "expected_status_matched": true
+        },
+        "timed_wrong_dtype": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "benchmark_validation",
+          "phase": "timed",
+          "actor": "candidate",
+          "iteration": 0,
+          "seed": 4,
+          "check": {
+            "passed": false,
+            "problems": [
+              "output: expected [2, 3] torch.float32, got [2, 3] torch.float64"
+            ],
+            "tensors": []
+          },
+          "report": "hardened/timed_wrong_dtype/5d4c22df9b2947beb96e47ed1f3c74f1/result.json",
+          "expected_status_matched": true
+        },
+        "timed_nan": {
+          "status": "incorrect",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "correctness_error",
+          "stage": "benchmark_validation",
+          "phase": "timed",
+          "actor": "candidate",
+          "iteration": 0,
+          "seed": 4,
+          "check": {
+            "passed": false,
+            "problems": [],
+            "tensors": [
+              {
+                "path": "output",
+                "shape": [
+                  2,
+                  3
+                ],
+                "dtype": "torch.float32",
+                "elements": 6,
+                "mismatches": 6,
+                "max_abs_error_finite": 0.0,
+                "max_rel_error_finite": 0.0,
+                "first_mismatch": {
+                  "flat_index": 0,
+                  "expected": "-3.0312960147857666",
+                  "actual": "nan"
+                }
+              }
+            ]
+          },
+          "report": "hardened/timed_nan/08ff7d4f347541d5b8b170efc7638782/result.json",
+          "expected_status_matched": true
+        },
+        "warmup_exception": {
+          "status": "error",
+          "correct": true,
+          "performance_published": false,
+          "error_category": "runtime_error",
+          "stage": "benchmark",
+          "phase": "warmup",
+          "actor": "candidate",
+          "iteration": 0,
+          "seed": 2,
+          "check": null,
+          "report": "hardened/warmup_exception/8f64f79dc2b9411c8b5fcf988bf2fadb/result.json",
+          "expected_status_matched": true
+        },
+        "timed_exception": {
+          "status": "error",
+          "correct": true,
+          "performance_published": false,
+          "error_category": "runtime_error",
+          "stage": "benchmark",
+          "phase": "timed",
+          "actor": "candidate",
+          "iteration": 0,
+          "seed": 4,
+          "check": null,
+          "report": "hardened/timed_exception/33f197ede1354917a1ae00b66c0ce021/result.json",
+          "expected_status_matched": true
+        },
+        "timed_timeout": {
+          "status": "timeout",
+          "correct": false,
+          "performance_published": false,
+          "error_category": "timeout",
+          "stage": "benchmark",
+          "phase": null,
+          "actor": null,
+          "iteration": null,
+          "seed": null,
+          "check": null,
+          "report": "hardened/timed_timeout/aecca07a2dc14133ba277fc7e6427dfd/result.json",
+          "expected_status_matched": true
+        }
+      }
+    }
+  },
+  "evidence_directory": "runs/reliability-20261022/82d88c8e43c047c09fa042e391a634a1",
+  "limitations": [
+    "Hand-chosen corpus: 2 controls, 11 functional-contract mutants, 3 execution failures.",
+    "CPU harness experiment; does not establish NKI device correctness or performance.",
+    "No checker replacement, OS escape, credential access, or hostile isolation attacks.",
+    "Public deterministic inputs and a shared checker process are not a security boundary."
+  ]
+}

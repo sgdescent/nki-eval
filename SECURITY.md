@@ -16,5 +16,11 @@ evaluation service needs separately protected reference outputs, an external tim
 authority, resource isolation, and runtime native-execution verification. Do not trust v0.1
 reports from adversarial code as a secure reward signal.
 
+Fresh inputs and numerical checks throughout warmup and timing reject stale answers and delayed
+functional failures in the documented regression corpus. Seeds remain public and the candidate
+shares a process with the oracle and checker. These checks do not establish isolation or prevent
+checker tampering. The measured CPU mutation experiment is documented in
+[reliability-results.md](docs/reliability-results.md); it is not an adversarial security audit.
+
 Report bugs via GitHub issues using minimal reproductions. Do not include credentials, private
 source, environment dumps, or private compiler artifacts in public reports.

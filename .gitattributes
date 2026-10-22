@@ -1,0 +1,3 @@
+# Raw experimental evidence is retained in full and can be expanded in GitHub review.
+validation/** linguist-generated=true
+benchmarks/reliability-*.json linguist-generated=true
